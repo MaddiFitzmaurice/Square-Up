@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
 
     // Player's states
     public PlayerGravState playerGravState;
+    public PlayerNoGravState playerNoGravState;
 
     // Player movement
     public PlayerMovement playerMovement;
@@ -24,7 +25,7 @@ public class Player : MonoBehaviour
 
         // Create player's states
         playerGravState = new PlayerGravState(this);
-        // playerNoGravState = new PlayerNoGravState(this);
+        playerNoGravState = new PlayerNoGravState(this);
 
         // Create player's state machine
         stateMachine = new StateMachine(playerGravState);

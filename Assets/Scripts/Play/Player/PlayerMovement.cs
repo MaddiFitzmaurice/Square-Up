@@ -7,40 +7,32 @@ public class PlayerMovement : MonoBehaviour
     public float horizontalInput;
     public float verticalInput;
 
-    public float rayLength;
-
-    public bool checkWall;
-    public bool checkFloorCeiling;
-
-    private int playerHoriDir = 1;
-    private int playerVertDir = -1;
+    private float rayLength = 0.6f;
 
     private void Update()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-
-        WallCheck();
-        FloorCeilingCheck();
     }
 
-    public bool WallCheck()
+    // Movement checks for 'No Grav' state
+    public bool RightWallCheck()
     {
-        if (horizontalInput != 0 && Mathf.Sign(horizontalInput) != playerHoriDir)
-        {
-            playerHoriDir *= -1;
-        }
-        checkWall = Physics.Raycast(gameObject.transform.position, Vector3.right * playerHoriDir, rayLength);
-        return checkWall;
+        return Physics.Raycast(gameObject.transform.position, Vector3.right, rayLength);
     }
 
-    public bool FloorCeilingCheck()
+    public bool LeftWallCheck()
     {
-        if (verticalInput != 0 && Mathf.Sign(verticalInput) != playerVertDir)
-        {
-            playerVertDir *= -1;
-        }
-        checkFloorCeiling = Physics.Raycast(gameObject.transform.position, Vector3.forward * playerVertDir, rayLength);
-        return checkFloorCeiling;
+        return Physics.Raycast(gameObject.transform.position, -Vector3.right, rayLength);
+    }
+
+    public bool CeilingCheck()
+    {
+        return Physics.Raycast(gameObject.transform.position, Vector3.forward, rayLength);
+    }
+
+    public bool FloorCheck()
+    {
+        return Physics.Raycast(gameObject.transform.position, -Vector3.forward, rayLength);
     }
 }
