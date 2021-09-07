@@ -10,11 +10,23 @@ public class PlayerNoGravState : BaseState
         player = _player;
     }
 
+    public override void Enter()
+    {
+        // Stop player's momentum
+        player.playerMovement.ResetPlayerVelocity();
+        player.playerMovement.NoGravEnter();
+    }
+
     public override void LogicUpdate()
     {
         if (GameManager.instance.gravOn)
         {
             player.stateMachine.ChangeState(player.playerGravState);
         }
+    }
+
+    public override void PhysicsUpdate()
+    {
+        player.playerMovement.NoGravMove();
     }
 }

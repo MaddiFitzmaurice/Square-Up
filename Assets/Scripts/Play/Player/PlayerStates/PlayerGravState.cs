@@ -12,6 +12,13 @@ public class PlayerGravState : BaseState
         player = _player;
     }
 
+    public override void Enter()
+    {
+        // Stop player's momentum
+        //player.playerMovement.ResetPlayerVelocity();
+        //player.playerMovement.GravEnter();
+    }
+
     public override void LogicUpdate()
     {
         if (!GameManager.instance.gravOn)
@@ -20,17 +27,10 @@ public class PlayerGravState : BaseState
         }    
     }
 
+    // Maybe move the logic to playerMovement instead and use a player.playerMovement.Move() here
     public override void PhysicsUpdate()
     {
-        if (player.playerMovement.CeilingCheck() || player.playerMovement.FloorCheck())
-        {
-            player.playerRb.velocity = new Vector3(player.playerMovement.horizontalInput * player.playerData.gravSpeed, 0, player.playerRb.velocity.z);
-        }
-
-        if (player.playerMovement.RightWallCheck() || player.playerMovement.LeftWallCheck())
-        {
-            player.playerRb.velocity = new Vector3(player.playerRb.velocity.x, 0, player.playerMovement.verticalInput * player.playerData.gravSpeed);
-        }
+        player.playerMovement.GravMove();
     }
 
 }

@@ -19,9 +19,9 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         // Create link to player components
-        playerMovement = GetComponent<PlayerMovement>();
         playerRb = GetComponent<Rigidbody>();
         playerData = GetComponent<PlayerData>();
+        playerMovement = GetComponent<PlayerMovement>();
 
         // Create player's states
         playerGravState = new PlayerGravState(this);
