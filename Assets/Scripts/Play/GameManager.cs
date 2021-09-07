@@ -5,16 +5,16 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     // Create a singleton pattern
-    public static GameManager gameManager { get; private set; }
+    public static GameManager instance { get; private set; }
 
     // Check if 'gravity' is on or off
     public bool gravOn;
 
     private void Awake()
     {
-        if (gameManager == null)
+        if (instance == null)
         {
-            gameManager = this;
+            instance = this;
         }
         else
         {
@@ -26,5 +26,13 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         gravOn = true;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            gravOn = !gravOn;
+        }
     }
 }

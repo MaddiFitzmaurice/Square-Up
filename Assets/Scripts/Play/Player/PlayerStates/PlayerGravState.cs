@@ -14,10 +14,10 @@ public class PlayerGravState : BaseState
 
     public override void LogicUpdate()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (!GameManager.instance.gravOn)
         {
             player.stateMachine.ChangeState(player.playerNoGravState);
-        }
+        }    
     }
 
     public override void PhysicsUpdate()
