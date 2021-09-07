@@ -27,9 +27,8 @@ public class PlayerMovement : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
     }
 
-    // Movement checks for 'Grav' state
+    // Movement for 'Grav' state
     #region Grav Movement
-
     public void GravMove()
     {
         if (CeilingCheck() || FloorCheck())
@@ -46,9 +45,10 @@ public class PlayerMovement : MonoBehaviour
     public void GravEnter()
     {
         // Simulate gravity kicking back in
-        player.playerRb.AddForce(-Vector3.forward * 9.81f, ForceMode.Acceleration);
+        player.playerRb.AddForce(-Vector3.forward * 9.81f, ForceMode.Impulse);
     }
 
+    // Wall checks
     public bool RightWallCheck()
     {
         return Physics.Raycast(gameObject.transform.position, Vector3.right, rayLength);
@@ -109,12 +109,12 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator CoroutineWaitTimer()
     {
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(1.5f);
         canControl = true;
     }
 
     public void ResetPlayerVelocity()
     {
-        player.playerRb.velocity = Vector3.zero;
+        player.playerRb.velocity = new Vector3(0, 0, 0);
     }
 }

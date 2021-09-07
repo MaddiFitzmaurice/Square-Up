@@ -14,9 +14,9 @@ public class PlayerGravState : BaseState
 
     public override void Enter()
     {
-        // Stop player's momentum
+        // Stop player's
         //player.playerMovement.ResetPlayerVelocity();
-        //player.playerMovement.GravEnter();
+        player.playerMovement.GravEnter();
     }
 
     public override void LogicUpdate()

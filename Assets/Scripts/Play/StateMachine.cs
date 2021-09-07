@@ -10,7 +10,7 @@ public class StateMachine
     public StateMachine(BaseState _startingState)
     {
         currentState = _startingState;
-        currentState.Enter();
+        //currentState.Enter();
     }
 
     public void ChangeState(BaseState _stateName)
