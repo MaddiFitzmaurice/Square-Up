@@ -412,6 +412,7 @@ GameObject:
   - component: {fileID: 370257839}
   - component: {fileID: 370257844}
   - component: {fileID: 370257843}
+  - component: {fileID: 370257845}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Boss
@@ -503,7 +504,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cca883995746c47afbd9c3f1e3094b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossMovement: {fileID: 0}
   bossRb: {fileID: 0}
+  player: {fileID: 0}
 --- !u!54 &370257844
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -520,6 +523,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 94
   m_CollisionDetection: 0
+--- !u!114 &370257845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370257838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b87885b852a74ce458f2dd7319f9582c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0
@@ -983,7 +998,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravSpeed: 10
-  noGravSpeed: 0.5
+  noGravSpeed: 0.1
 --- !u!1 &1958066370
 GameObject:
   m_ObjectHideFlags: 0

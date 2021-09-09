@@ -2,30 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossSpongeState : BaseState
+public class BossWeakState : BaseState
 {
     private Boss boss;
 
-    public BossSpongeState(Boss _boss)
+    public BossWeakState(Boss _boss)
     {
         boss = _boss;
     }
 
     public override void Enter()
     {
-       
+        
     }
 
     public override void LogicUpdate()
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            boss.stateMachine.ChangeState(boss.bossWeakState);
+            boss.stateMachine.ChangeState(boss.bossSpongeState);
         }
     }
 
     public override void PhysicsUpdate()
     {
-        boss.bossMovement.LookAtPlayer();
+        boss.bossMovement.ResetRotation();
     }
 }
