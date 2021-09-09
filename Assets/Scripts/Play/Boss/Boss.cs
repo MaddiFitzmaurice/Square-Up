@@ -4,15 +4,45 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    // Boss's state machine
+    public StateMachine stateMachine;
+
+    // Boss's states
+    public BossSpongeState bossSpongeState;
+
+    // Boss's movement
+    public Rigidbody bossRb;
+
+    // Player reference
+    private Player player;
+
+    private void Awake()
     {
-        
+        // Create link to boss components
+        bossRb = GetComponent<Rigidbody>();
+
+        // Create boss's states
+        bossSpongeState = new BossSpongeState(this);
+
+        // Create boss's state machine
+        stateMachine = new StateMachine(bossSpongeState, player);
+
+        // Get reference to player
+        player = FindObjectOfType<Player>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+
+    }
+
+    private void Update()
+    {
+        stateMachine.currentState.LogicUpdate();
+    }
+
+    private void FixedUpdate()
+    {
+        stateMachine.currentState.PhysicsUpdate();
     }
 }
