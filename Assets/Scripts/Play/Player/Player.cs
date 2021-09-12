@@ -11,7 +11,8 @@ public class Player : MonoBehaviour
     public PlayerGravState playerGravState;
     public PlayerNoGravState playerNoGravState;
 
-    // Player movement
+    // Player components
+    public PlayerAttack playerAttack;
     public PlayerMovement playerMovement;
     public Rigidbody playerRb;
     public PlayerData playerData;
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour
         playerRb = GetComponent<Rigidbody>();
         playerData = GetComponent<PlayerData>();
         playerMovement = GetComponent<PlayerMovement>();
+        playerAttack = GetComponent<PlayerAttack>();
 
         // Create player's states
         playerGravState = new PlayerGravState(this);
