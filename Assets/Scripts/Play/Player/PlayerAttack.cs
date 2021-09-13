@@ -15,6 +15,11 @@ public class PlayerAttack : MonoBehaviour
     {
         player = GetComponent<Player>();
 
+        // Projectile data setup
+        BasicProjectile projData = projectile.GetComponent<BasicProjectile>();
+        projData.speed = player.playerData.gravFireSpeed;
+        projData.reloadRate = player.playerData.gravFireReloadRate;
+
         // Object pooling setup
         projectiles = new List<GameObject>();
         projectilesToPool = player.playerData.gravProjectiles;
@@ -24,10 +29,10 @@ public class PlayerAttack : MonoBehaviour
     public void FireProjectile()
     {
         Vector3 fireDir = player.playerMovement.GetPlayerFireDirection();
-        float speed = player.playerData.gravFireSpeed;
 
         GameObject projectile = ObjectPooler.GetPooledObject(projectiles);
 
+        // If player has projectiles available to fire
         if (projectile != null)
         {
             projectile.transform.position = transform.position;
@@ -45,7 +50,7 @@ public class PlayerAttack : MonoBehaviour
                 projectile.transform.rotation = transform.rotation;
                 projectile.GetComponent<BasicProjectile>().dir = fireDir;
             }
-            projectile.GetComponent<BasicProjectile>().speed = speed;
+        
             projectile.SetActive(true);
         }
     }

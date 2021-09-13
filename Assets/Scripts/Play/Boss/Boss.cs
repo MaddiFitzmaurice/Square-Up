@@ -11,11 +11,11 @@ public class Boss : MonoBehaviour
     public BossSpongeState bossSpongeState;
     public BossWeakState bossWeakState;
 
-    // Boss's movement
+    // Boss's components
     public BossMovement bossMovement;
-
-    // Boss's movement
     public Rigidbody bossRb;
+    public BossAttacks bossAttacks;
+    public BossData bossData;
 
     // Player reference
     public Player player;
@@ -25,6 +25,8 @@ public class Boss : MonoBehaviour
         // Create link to boss components
         bossRb = GetComponent<Rigidbody>();
         bossMovement = GetComponent<BossMovement>();
+        bossAttacks = GetComponent<BossAttacks>();
+        bossData = GetComponent<BossData>();
 
         // Create boss's states
         bossSpongeState = new BossSpongeState(this);

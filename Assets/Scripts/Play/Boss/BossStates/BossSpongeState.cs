@@ -13,7 +13,7 @@ public class BossSpongeState : BaseState
 
     public override void Enter()
     {
-       
+        boss.bossAttacks.StartSingleFire();
     }
 
     public override void LogicUpdate()
@@ -27,5 +27,10 @@ public class BossSpongeState : BaseState
     public override void PhysicsUpdate()
     {
         boss.bossMovement.LookAtPlayer();
+    }
+
+    public override void Exit()
+    {
+        boss.bossAttacks.StopSingleFire();
     }
 }
