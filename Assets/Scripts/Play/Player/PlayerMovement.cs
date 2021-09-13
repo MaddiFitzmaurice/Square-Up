@@ -117,4 +117,24 @@ public class PlayerMovement : MonoBehaviour
     {
         player.playerRb.velocity = new Vector3(0, 0, 0);
     }
+
+    public Vector3 GetPlayerFireDirection()
+    {
+        if (FloorCheck())
+        {
+            return Vector3.forward;
+        }
+        else if (CeilingCheck())
+        {
+            return Vector3.back;
+        }
+        else if (RightWallCheck())
+        {
+            return Vector3.left;
+        }
+        else
+        {
+            return Vector3.right;
+        }
+    }
 }

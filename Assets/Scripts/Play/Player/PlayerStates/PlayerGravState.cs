@@ -24,7 +24,13 @@ public class PlayerGravState : BaseState
         if (!GameManager.instance.gravOn)
         {
             player.stateMachine.ChangeState(player.playerNoGravState);
-        }    
+        }
+        
+        // ******Change input button later
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            player.playerAttack.FireProjectile();
+        }
     }
 
     // Maybe move the logic to playerMovement instead and use a player.playerMovement.Move() here

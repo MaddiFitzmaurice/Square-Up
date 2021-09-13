@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class BasicProjectile : MonoBehaviour
 {
-    private void OnEnable()
-    {
-        
-    }
+    public float speed;
 
-    private void OnDisable()
+    public Vector3 dir;
+
+    private void Update()
     {
-        
+        transform.Translate(dir * Time.deltaTime * speed);
     }
 }

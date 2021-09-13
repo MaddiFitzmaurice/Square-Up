@@ -6,28 +6,47 @@ public class PlayerAttack : MonoBehaviour
 {
     public GameObject projectile;
 
-    public int projectilesToPool;
+    private int projectilesToPool;
 
+    private Player player;
     private List<GameObject> projectiles;
 
     private void Start()
     {
+        player = GetComponent<Player>();
+
+        // Object pooling setup
         projectiles = new List<GameObject>();
-        CreateProjectilePool();
+        projectilesToPool = player.playerData.gravProjectiles;
+        projectiles = ObjectPooler.CreateObjectPool(projectilesToPool, projectile);
     }
 
     public void FireProjectile()
     {
+        Vector3 fireDir = player.playerMovement.GetPlayerFireDirection();
+        float speed = player.playerData.gravFireSpeed;
 
-    }
+        GameObject projectile = ObjectPooler.GetPooledObject(projectiles);
 
-    public void CreateProjectilePool()
-    {
-        for (int i = 0; i < projectilesToPool; i++)
+        if (projectile != null)
         {
-            GameObject obj = Instantiate(projectile, transform.position, Quaternion.identity);
-            obj.SetActive(false);
-            projectiles.Add(obj);
+            projectile.transform.position = transform.position;
+
+            // Determine fire direction
+            if (fireDir == Vector3.right || fireDir == Vector3.left)
+            {
+                int rotAngle = fireDir == Vector3.right ? 90 : -90;
+
+                projectile.transform.rotation = Quaternion.Euler(transform.rotation.x, rotAngle, transform.rotation.z);
+                projectile.GetComponent<BasicProjectile>().dir = Vector3.forward;
+            }
+            else
+            {
+                projectile.transform.rotation = transform.rotation;
+                projectile.GetComponent<BasicProjectile>().dir = fireDir;
+            }
+            projectile.GetComponent<BasicProjectile>().speed = speed;
+            projectile.SetActive(true);
         }
     }
 }
