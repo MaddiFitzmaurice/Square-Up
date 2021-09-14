@@ -440,11 +440,13 @@ GameObject:
   - component: {fileID: 370257841}
   - component: {fileID: 370257840}
   - component: {fileID: 370257839}
+  - component: {fileID: 370257849}
   - component: {fileID: 370257844}
+  - component: {fileID: 370257847}
   - component: {fileID: 370257843}
   - component: {fileID: 370257845}
   - component: {fileID: 370257846}
-  - component: {fileID: 370257847}
+  - component: {fileID: 370257848}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Boss
@@ -540,6 +542,7 @@ MonoBehaviour:
   bossRb: {fileID: 0}
   bossAttacks: {fileID: 0}
   bossData: {fileID: 0}
+  bossHealthManager: {fileID: 0}
   player: {fileID: 0}
 --- !u!54 &370257844
 Rigidbody:
@@ -596,11 +599,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 781417c30772fb548999d8fcad64f0e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  shieldHealthMax: 15
+  shieldHealth: 0
   basicProjectiles: 10
   bpStartTime: 1
   bpFireRate: 0.5
   bpReloadRate: 2
   bpSpeed: 15
+--- !u!114 &370257848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370257838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dfd37d7bb052b34da589648646f7404, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shield: {fileID: 1593584143}
+--- !u!135 &370257849
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370257838}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.8
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,6 +989,7 @@ GameObject:
   - component: {fileID: 1336132484}
   - component: {fileID: 1336132485}
   - component: {fileID: 1336132487}
+  - component: {fileID: 1336132488}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1095,6 +1128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7694ff55252f6034882465d52a42ff8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 5
   gravSpeed: 10
   gravFireReloadRate: 2
   gravFireSpeed: 15
@@ -1115,6 +1149,18 @@ MonoBehaviour:
   projectile: {fileID: 4945062170482623835, guid: 71547410a1572a64ea9b4eb5c315ecf9,
     type: 3}
   projectileGrouping: {fileID: 1732049656}
+--- !u!114 &1336132488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336132478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87087a56a4cad1442b3e170aab04ffef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1593584143
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,12 +13,18 @@ public class BossSpongeState : BaseState
 
     public override void Enter()
     {
+        boss.bossHealthManager.ResetShields();
         boss.bossAttacks.StartSingleFire();
     }
 
     public override void LogicUpdate()
     {
         if (Input.GetKeyDown(KeyCode.B))
+        {
+            boss.stateMachine.ChangeState(boss.bossWeakState);
+        }
+
+        if (boss.bossData.shieldHealth == 0)
         {
             boss.stateMachine.ChangeState(boss.bossWeakState);
         }

@@ -16,6 +16,7 @@ public class Boss : MonoBehaviour
     public Rigidbody bossRb;
     public BossAttacks bossAttacks;
     public BossData bossData;
+    public BossHealthManager bossHealthManager;
 
     // Player reference
     public Player player;
@@ -27,6 +28,7 @@ public class Boss : MonoBehaviour
         bossMovement = GetComponent<BossMovement>();
         bossAttacks = GetComponent<BossAttacks>();
         bossData = GetComponent<BossData>();
+        bossHealthManager = GetComponent<BossHealthManager>();
 
         // Create boss's states
         bossSpongeState = new BossSpongeState(this);

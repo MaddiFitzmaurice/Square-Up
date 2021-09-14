@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
     // Create a singleton pattern
     public static GameManager instance { get; private set; }
 
+    private Boss boss;
+    private Player player;
+
     // Check if 'gravity' is on or off
     public bool gravOn;
 
@@ -26,6 +29,12 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         gravOn = true;
+
+        // Get references to the player and boss
+        player = FindObjectOfType<Player>();
+        boss = FindObjectOfType<Boss>();
+
+        boss.stateMachine.currentState.Enter();
     }
 
     private void Update()
