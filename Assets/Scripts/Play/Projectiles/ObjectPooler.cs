@@ -30,5 +30,16 @@ public static class ObjectPooler
 
         return null;
     }
+
+    // Assign parent grouping to clean the hierarchy up in the editor
+    public static List<GameObject> AssignParentGrouping(List<GameObject> _pooledObjects, Transform _parent)
+    {
+        for (int i = 0; i < _pooledObjects.Count; i++)
+        {
+            _pooledObjects[i].transform.parent = _parent;
+        }
+
+        return _pooledObjects;
+    }
 }
 

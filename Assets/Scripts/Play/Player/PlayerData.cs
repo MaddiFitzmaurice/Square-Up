@@ -6,6 +6,10 @@ public class PlayerData : MonoBehaviour
 {
     // Exposed to the editor for easy designer access
 
+    #region Player Health Data
+    public int health;
+    #endregion
+
     #region Gravity Data
     public float gravSpeed;
     public float gravFireReloadRate;

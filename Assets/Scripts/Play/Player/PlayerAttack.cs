@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     public GameObject projectile;
+    public Transform projectileGrouping;
 
     private int projectilesToPool;
 
@@ -24,6 +25,7 @@ public class PlayerAttack : MonoBehaviour
         projectiles = new List<GameObject>();
         projectilesToPool = player.playerData.gravProjectiles;
         projectiles = ObjectPooler.CreateObjectPool(projectilesToPool, projectile);
+        projectiles = ObjectPooler.AssignParentGrouping(projectiles, projectileGrouping);
     }
 
     public void FireProjectile()
