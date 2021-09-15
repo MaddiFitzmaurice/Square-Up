@@ -43,5 +43,7 @@ public class GameManager : MonoBehaviour
         {
             gravOn = !gravOn;
         }
+
+        
     }
 }

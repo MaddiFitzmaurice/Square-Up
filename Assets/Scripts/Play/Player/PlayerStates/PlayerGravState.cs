@@ -31,6 +31,11 @@ public class PlayerGravState : BaseState
         {
             player.playerAttack.FireProjectile();
         }
+
+        if (player.playerData.health == 0)
+        {
+            Debug.Log("You died.");
+        }    
     }
 
     // Maybe move the logic to playerMovement instead and use a player.playerMovement.Move() here
