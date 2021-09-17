@@ -19,5 +19,6 @@ public class GMSpongeState : BaseState
     {
         player.stateMachine.ChangeState(player.playerGravState);
         boss.stateMachine.ChangeState(boss.bossSpongeState);
+        enviroManager.stateMachine.ChangeState(enviroManager.enviroSpongeState);
     }
 }

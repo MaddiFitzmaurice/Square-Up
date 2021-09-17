@@ -5,33 +5,34 @@ using UnityEngine;
 public class LaunchpadMovement : MonoBehaviour
 {
     // Movement constrictions
-    private float upperBound = 14.3f;
-    private float lowerBound = 13.3f;
+    public Transform target;
+    public Transform returnTarget;
 
     void Start()
     {
-        
+
     }
 
     // Launchpad comes out of wall to act as barrier for player
     public void BarrierLaunchpad()
     {
-        StartCoroutine(MoveOut());
+        StartCoroutine(Move(target));
     }
 
     // Launchpad retracts inside wall
     public void RetractLaunchpad()
     {
-        StartCoroutine(MoveIn());
+        StartCoroutine(Move(returnTarget));
     }
 
-    IEnumerator MoveOut()
+    // Move barrier depending on target position
+    IEnumerator Move(Transform _target)
     {
-        yield return null;
-    }
+        while (Vector3.Distance(transform.position, _target.position) > 0.05f)
+        {
+            transform.position = Vector3.Lerp(transform.position, _target.position, Time.deltaTime);
 
-    IEnumerator MoveIn()
-    {
-        yield return null;
+            yield return null;
+        }
     }
 }

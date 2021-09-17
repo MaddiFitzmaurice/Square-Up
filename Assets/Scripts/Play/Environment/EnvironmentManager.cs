@@ -9,10 +9,11 @@ public class EnvironmentManager : MonoBehaviour
 
     public List<GameObject> launchPads;
 
+    public enum LaunchpadDir { floor, ceiling, left, right};
 
     private void Awake()
     {
-        enviroSpongeState = new EnviroSpongeState();
+        enviroSpongeState = new EnviroSpongeState(this, launchPads);
         stateMachine = new StateMachine(enviroSpongeState);
     }
 
