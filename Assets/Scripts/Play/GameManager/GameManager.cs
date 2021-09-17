@@ -12,15 +12,18 @@ public class GameManager : MonoBehaviour
 
     private Boss boss;
     private Player player;
+    private EnvironmentManager enviro;
 
-    // Key flags for influencing systems
-    public bool start = true;
-    public bool sponge = false;
-    public bool evade = false;
-    public bool attack = false;
+    // State machine
+    public StateMachine gmStateMachine;
+    public GMStartState gmStartState;
+    public GMSpongeState gmSpongeState;
+    public GMAttackState gmAttackState;
+
 
     private void Awake()
     {
+        // Set up singleton pattern
         if (instance == null)
         {
             instance = this;
@@ -30,26 +33,25 @@ public class GameManager : MonoBehaviour
             Destroy(this);
             return;
         }
+
+        // Get references to systems
+        player = FindObjectOfType<Player>();
+        boss = FindObjectOfType<Boss>();
+        enviro = FindObjectOfType<EnvironmentManager>();
     }
 
     private void Start()
     {
-        sponge = true;
-
-        // Get references to the player and boss
-        player = FindObjectOfType<Player>();
-        boss = FindObjectOfType<Boss>();
-
-        boss.stateMachine.currentState.Enter();
+        // Set up state machine and states
+        gmStartState = new GMStartState(player, boss, enviro);
+        gmSpongeState = new GMSpongeState(player, boss, enviro);
+        gmAttackState = new GMAttackState(player, boss, enviro);
+        gmStateMachine = new StateMachine(gmStartState);
+        gmStateMachine.ChangeState(gmSpongeState);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            sponge = !sponge;
-        }
-
         
     }
 }

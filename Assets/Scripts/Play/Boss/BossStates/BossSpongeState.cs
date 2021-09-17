@@ -19,14 +19,9 @@ public class BossSpongeState : BaseState
 
     public override void LogicUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            boss.stateMachine.ChangeState(boss.bossWeakState);
-        }
-
         if (boss.bossData.shieldHealth == 0)
         {
-            boss.stateMachine.ChangeState(boss.bossWeakState);
+            GameManager.instance.gmStateMachine.ChangeState(GameManager.instance.gmAttackState);
         }
     }
 

@@ -19,14 +19,16 @@ public class PlayerNoGravState : BaseState
 
     public override void LogicUpdate()
     {
-        if (GameManager.instance.sponge)
-        {
-            player.stateMachine.ChangeState(player.playerGravState);
-        }
+        // Change state here?
     }
 
     public override void PhysicsUpdate()
     {
         player.playerMovement.NoGravMove();
+    }
+
+    public override void Exit()
+    {
+        player.playerMovement.GravEnter();
     }
 }

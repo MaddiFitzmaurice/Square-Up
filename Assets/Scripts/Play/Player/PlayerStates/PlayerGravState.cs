@@ -16,16 +16,11 @@ public class PlayerGravState : BaseState
     {
         // Stop player's
         //player.playerMovement.ResetPlayerVelocity();
-        player.playerMovement.GravEnter();
+        
     }
 
     public override void LogicUpdate()
-    {
-        if (!GameManager.instance.sponge)
-        {
-            player.stateMachine.ChangeState(player.playerNoGravState);
-        }
-        
+    {   
         // ******Change input button later
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -35,7 +30,8 @@ public class PlayerGravState : BaseState
         if (player.playerData.health == 0)
         {
             Debug.Log("You died.");
-        }    
+            // GameManager.instance.gmStateMachine.ChangeState(GameManager.instance.gmEndState);
+        }
     }
 
     // Maybe move the logic to playerMovement instead and use a player.playerMovement.Move() here
