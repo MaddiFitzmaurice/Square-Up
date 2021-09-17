@@ -51,22 +51,80 @@ public class PlayerMovement : MonoBehaviour
     // Wall checks
     public bool RightWallCheck()
     {
-        return Physics.Raycast(gameObject.transform.position, Vector3.right, rayLength);
+        RaycastHit hit;
+        if (Physics.Raycast(gameObject.transform.position, Vector3.right, out hit, rayLength))
+        {
+            if (hit.collider.CompareTag("Wall"))
+            {
+                return true;
+            }    
+            else
+            {
+                return false;
+            }
+        }
+
+        return false;
     }
 
     public bool LeftWallCheck()
     {
-        return Physics.Raycast(gameObject.transform.position, -Vector3.right, rayLength);
+        RaycastHit hit;
+        if (Physics.Raycast(gameObject.transform.position, -Vector3.right, out hit, rayLength))
+        {
+            if (hit.collider.CompareTag("Wall"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public bool CeilingCheck()
     {
-        return Physics.Raycast(gameObject.transform.position, Vector3.forward, rayLength);
+        RaycastHit hit;
+        if (Physics.Raycast(gameObject.transform.position, Vector3.forward, out hit, rayLength))
+        {
+            if (hit.collider.CompareTag("Wall"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public bool FloorCheck()
     {
-        return Physics.Raycast(gameObject.transform.position, -Vector3.forward, rayLength);
+        RaycastHit hit;
+        if (Physics.Raycast(gameObject.transform.position, -Vector3.forward, out hit, rayLength))
+        {
+            if (hit.collider.CompareTag("Wall"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
     }
     #endregion
 

@@ -21,7 +21,7 @@ public class PlayerGravState : BaseState
 
     public override void LogicUpdate()
     {
-        if (!GameManager.instance.gravOn)
+        if (!GameManager.instance.sponge)
         {
             player.stateMachine.ChangeState(player.playerNoGravState);
         }

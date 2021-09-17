@@ -7,6 +7,8 @@ TagManager:
   - Boss
   - BossSingleFire
   - PlayerProjectile
+  - Launchpad
+  - Wall
   layers:
   - Default
   - TransparentFX
