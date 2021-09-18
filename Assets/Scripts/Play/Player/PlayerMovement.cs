@@ -39,13 +39,15 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator ToStartPos(Vector3 _target)
     {
+        canControl = false;
         while (Vector3.Distance(transform.position, _target) > 0.05f)
         {
             transform.position = Vector3.Lerp(transform.position, _target, Time.deltaTime);
 
             yield return null;
         }
-        Debug.Log("Gello");
+
+        canControl = true;
         transform.position = _target;
     }
     #endregion
@@ -54,14 +56,17 @@ public class PlayerMovement : MonoBehaviour
     #region Grav Movement
     public void GravMove()
     {
-        if (CeilingCheck() || FloorCheck())
+        if (canControl)
         {
-            player.playerRb.velocity = new Vector3(horizontalInput * player.playerData.gravSpeed, 0, player.playerRb.velocity.z);
-        }
+            if (CeilingCheck() || FloorCheck())
+            {
+                player.playerRb.velocity = new Vector3(horizontalInput * player.playerData.gravSpeed, 0, player.playerRb.velocity.z);
+            }
 
-        if (RightWallCheck() || LeftWallCheck())
-        {
-            player.playerRb.velocity = new Vector3(player.playerRb.velocity.x, 0, verticalInput * player.playerData.gravSpeed);
+            if (RightWallCheck() || LeftWallCheck())
+            {
+                player.playerRb.velocity = new Vector3(player.playerRb.velocity.x, 0, verticalInput * player.playerData.gravSpeed);
+            }
         }
     }
 
