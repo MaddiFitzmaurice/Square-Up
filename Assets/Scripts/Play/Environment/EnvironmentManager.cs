@@ -9,6 +9,7 @@ public class EnvironmentManager : MonoBehaviour
     public StateMachine stateMachine;
     public EnviroSpongeState enviroSpongeState;
     public EnviroLaunchState enviroLaunchState;
+    public EnviroEvadeState enviroEvadeState;
 
     public List<LaunchpadMovement> launchPads;
 
@@ -18,16 +19,11 @@ public class EnvironmentManager : MonoBehaviour
         // State machine setup
         enviroSpongeState = new EnviroSpongeState(this);
         enviroLaunchState = new EnviroLaunchState(this);
+        enviroEvadeState = new EnviroEvadeState(this);
         stateMachine = new StateMachine(enviroSpongeState);
     }
 
     void Start()
-    {
-        
-    }
-
-    
-    void Update()
     {
         
     }

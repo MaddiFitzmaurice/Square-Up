@@ -8,13 +8,16 @@ public class PlayerMovement : MonoBehaviour
     public float horizontalInput;
     public float verticalInput;
 
+    private Player player;
+
     // When player control is taken away
     public bool canControl = true;
 
     // Raycast length
     private float rayLength = 0.6f;
 
-    private Player player;
+    // Start State variables
+    private Vector3 endPos = new Vector3(-5.0f, 0, -11.8f);
 
     private void Start()
     {
@@ -26,6 +29,26 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
     }
+
+    #region StartState Movement
+
+    public void MoveToStartPos()
+    {
+        StartCoroutine(ToStartPos(endPos));
+    }
+
+    IEnumerator ToStartPos(Vector3 _target)
+    {
+        while (Vector3.Distance(transform.position, _target) > 0.05f)
+        {
+            transform.position = Vector3.Lerp(transform.position, _target, Time.deltaTime);
+
+            yield return null;
+        }
+        Debug.Log("Gello");
+        transform.position = _target;
+    }
+    #endregion
 
     // Movement for 'Grav' state
     #region Grav Movement
@@ -152,7 +175,7 @@ public class PlayerMovement : MonoBehaviour
             player.playerRb.AddForce(-Vector3.right, ForceMode.Impulse);
         }
 
-        StartCoroutine(CoroutineWaitTimer());
+        StartCoroutine(FloatingWaitTimer());
     }
 
     public void NoGravMove()
@@ -163,13 +186,14 @@ public class PlayerMovement : MonoBehaviour
             player.playerRb.AddForce(Vector3.right * player.playerData.noGravSpeed * horizontalInput, ForceMode.Impulse);
         }
     }
-    #endregion
-
-    IEnumerator CoroutineWaitTimer()
+    
+    IEnumerator FloatingWaitTimer()
     {
         yield return new WaitForSeconds(1.5f);
         canControl = true;
     }
+
+    #endregion
 
     public void ResetPlayerVelocity()
     {

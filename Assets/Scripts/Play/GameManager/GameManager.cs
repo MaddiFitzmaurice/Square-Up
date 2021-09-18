@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
     public GMSpongeState gmSpongeState;
     public GMAttackState gmAttackState;
 
-
     private void Awake()
     {
         // Set up singleton pattern
@@ -47,11 +46,12 @@ public class GameManager : MonoBehaviour
         gmSpongeState = new GMSpongeState(player, boss, enviro);
         gmAttackState = new GMAttackState(player, boss, enviro);
         gmStateMachine = new StateMachine(gmStartState);
-        gmStateMachine.ChangeState(gmSpongeState);
+        gmStateMachine.ChangeState(gmStartState);
     }
 
+    // **** CHANGE LATER --> Control all state machine updates from here and in GM states
     private void Update()
     {
-        
+        gmStateMachine.currentState.LogicUpdate();
     }
 }

@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public StateMachine stateMachine;
 
     // Player's states
+    public PlayerStartState playerStartState;
     public PlayerGravState playerGravState;
     public PlayerNoGravState playerNoGravState;
 
@@ -26,11 +27,12 @@ public class Player : MonoBehaviour
         playerAttack = GetComponent<PlayerAttack>();
 
         // Create player's states
+        playerStartState = new PlayerStartState(this);
         playerGravState = new PlayerGravState(this);
         playerNoGravState = new PlayerNoGravState(this);
 
         // Create player's state machine
-        stateMachine = new StateMachine(playerGravState);
+        stateMachine = new StateMachine(playerStartState);
     }
 
     private void Start()
