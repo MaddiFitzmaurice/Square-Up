@@ -5,16 +5,29 @@ using UnityEngine;
 public class EnviroSpongeState : BaseState
 {
     private EnvironmentManager enviro;
-    private List<GameObject> launchpads;
+    private LaunchpadDir launchpadDir;
 
-    public EnviroSpongeState(EnvironmentManager _enviro, List<GameObject> _launchpads)
+    public EnviroSpongeState(EnvironmentManager _enviro)
     {
         enviro = _enviro;
-        launchpads = _launchpads;
     }
 
     public override void Enter()
     {
-        launchpads[0].GetComponent<LaunchpadMovement>().BarrierLaunchpad();
+        enviro.launchPads[(int)LaunchpadDir.Floor].BarrierLaunchpad();
+    }
+
+    public override void LogicUpdate()
+    {
+        
+    }
+
+    public override void Exit()
+    {
+        // Launchpads must all retract back into the walls
+        foreach (var item in enviro.launchPads)
+        {
+            item.RetractLaunchpad();
+        }
     }
 }

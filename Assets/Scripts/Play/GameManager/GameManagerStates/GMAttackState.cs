@@ -19,5 +19,6 @@ public class GMAttackState : BaseState
     {
         //player.stateMachine.ChangeState(player.playerGravState);
         boss.stateMachine.ChangeState(boss.bossWeakState);
+        enviroManager.stateMachine.ChangeState(enviroManager.enviroLaunchState);
     }
 }

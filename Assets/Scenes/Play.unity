@@ -751,10 +751,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   launchPads:
-  - {fileID: 34778847}
-  - {fileID: 136344507}
-  - {fileID: 2131440133}
-  - {fileID: 1873881891}
+  - {fileID: 34778852}
+  - {fileID: 136344512}
+  - {fileID: 2131440138}
+  - {fileID: 1873881896}
 --- !u!1 &370257838
 GameObject:
   m_ObjectHideFlags: 0
