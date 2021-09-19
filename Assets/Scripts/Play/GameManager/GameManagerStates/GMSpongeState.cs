@@ -21,4 +21,11 @@ public class GMSpongeState : BaseState
         boss.stateMachine.ChangeState(boss.bossSpongeState);
         enviroManager.stateMachine.ChangeState(enviroManager.enviroSpongeState);
     }
+
+    public override void LogicUpdate()
+    {
+        player.stateMachine.currentState.LogicUpdate();
+        boss.stateMachine.currentState.LogicUpdate();
+        enviroManager.stateMachine.currentState.LogicUpdate();
+    }
 }

@@ -712,9 +712,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 347306716}
+  - component: {fileID: 347306719}
   - component: {fileID: 347306717}
+  - component: {fileID: 347306718}
   m_Layer: 0
-  m_Name: Environment
+  m_Name: EnvironmentManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -750,11 +752,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62198164c5c972049a3d24c2c699f55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  launchPads:
+  launchpadManager: {fileID: 0}
+  enviroData: {fileID: 0}
+--- !u!114 &347306718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347306715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61d8e3f35d897e34188b2bd9339dba8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  launchpads:
   - {fileID: 34778852}
   - {fileID: 136344512}
   - {fileID: 2131440138}
   - {fileID: 1873881896}
+--- !u!114 &347306719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347306715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21a3d2d40389e014db029ee57a956988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barrierRate: 10
 --- !u!1 &370257838
 GameObject:
   m_ObjectHideFlags: 0

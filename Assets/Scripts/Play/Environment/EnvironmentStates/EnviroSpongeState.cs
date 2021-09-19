@@ -7,6 +7,8 @@ public class EnviroSpongeState : BaseState
     private EnvironmentManager enviro;
     private LaunchpadDir launchpadDir;
 
+    private float nextBarrierRaise;
+
     public EnviroSpongeState(EnvironmentManager _enviro)
     {
         enviro = _enviro;
@@ -14,20 +16,21 @@ public class EnviroSpongeState : BaseState
 
     public override void Enter()
     {
-        enviro.launchPads[(int)LaunchpadDir.Floor].BarrierLaunchpad();
+        nextBarrierRaise = 0;
     }
 
     public override void LogicUpdate()
     {
-        
+        // Time between next barrier raises
+        if (Time.time > nextBarrierRaise)
+        {
+            nextBarrierRaise = Time.time + enviro.enviroData.barrierRate;
+            enviro.launchpadManager.ChangeLaunchpadsRaised();
+        }
     }
 
     public override void Exit()
     {
-        // Launchpads must all retract back into the walls
-        foreach (var item in enviro.launchPads)
-        {
-            item.RetractLaunchpad();
-        }
+        enviro.launchpadManager.RetractAllLaunchpads();
     }
 }

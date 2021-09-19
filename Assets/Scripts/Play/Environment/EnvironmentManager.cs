@@ -11,11 +11,16 @@ public class EnvironmentManager : MonoBehaviour
     public EnviroLaunchState enviroLaunchState;
     public EnviroEvadeState enviroEvadeState;
 
-    public List<LaunchpadMovement> launchPads;
-
+    // EnvironmentManager components
+    public LaunchpadManager launchpadManager;
+    public EnvironmentData enviroData;
 
     private void Awake()
     {
+        // Environment Components
+        launchpadManager = GetComponent<LaunchpadManager>();
+        enviroData = GetComponent<EnvironmentData>();
+
         // State machine setup
         enviroSpongeState = new EnviroSpongeState(this);
         enviroLaunchState = new EnviroLaunchState(this);
