@@ -6,24 +6,60 @@ public class LaunchpadManager : MonoBehaviour
 {
     public List<LaunchpadMovement> launchpads;
 
-    // List used to pick random launchpad(s)
+    private int numOfBarriers;
+
+    // Lists used to pick random launchpads and store them
     private List<int> randomNums;
+    private List<int> barriersToRaise;
 
     private void Start()
     {
-        randomNums = new List<int>();        
+        randomNums = new List<int>();
+        barriersToRaise = new List<int>();
     }
 
-    public void ChangeLaunchpadsRaised()
+    // Accessed by Sponge State
+    // Number of barriers to raise increases with each cycle
+    public void ActivateBarrierLaunchpads(int _numOfBarriers)
     {
-        StartCoroutine(WaitForBarriers());
+        numOfBarriers = _numOfBarriers;
+        StartCoroutine(BarrierSequence());
+    }
+
+    // Chain together functions to operate sequentially
+    IEnumerator BarrierSequence()
+    {
+        StartCoroutine(LowerBarriers());
+        StartCoroutine(RaiseBarriers());
+        yield break;
+    }
+
+    // Lower barriers and return when all have retracted completely
+    IEnumerator LowerBarriers()
+    {
+        foreach (var item in launchpads)
+        {
+            item.RetractLaunchpad();
+        }
+
+        while (!CheckIfRetractedAll())
+        {
+            yield return null;
+        }
+        
+        yield break;
     }
 
     // Raise Launchpads as barriers to the player's movement
+    IEnumerator RaiseBarriers()
+    {
+        RaiseBarrierLaunchpads(numOfBarriers);
+        yield break;
+    }
+
+    // Select random barriers and raise them
     public void RaiseBarrierLaunchpads(int _amountToRaise)
     {
-        List<int> barriersToRaise = new List<int>();
-
         barriersToRaise = GenerateRandom(_amountToRaise);
 
         foreach (int index in barriersToRaise)
@@ -33,8 +69,10 @@ public class LaunchpadManager : MonoBehaviour
     }  
 
     // Launchpads all retract back into the walls
+    // when exiting Sponge State
     public void RetractAllLaunchpads()
     {
+        StopAllCoroutines();
         foreach (var item in launchpads)
         {
             item.RetractLaunchpad();
@@ -42,7 +80,8 @@ public class LaunchpadManager : MonoBehaviour
     }
 
     #region Helper Functions
-    // Generate random num of launchpads to raise
+    // Pick random launchpads to turn into barriers
+    // How many to raise is decided by Sponge State
     private List<int> GenerateRandom(int _amount)
     {
         randomNums.Clear();
@@ -68,11 +107,17 @@ public class LaunchpadManager : MonoBehaviour
         return randomNums;
     }
 
-    IEnumerator WaitForBarriers()
+    // Check if all barriers are retracted into the wall
+    private bool CheckIfRetractedAll()
     {
-        RetractAllLaunchpads();
-        yield return new WaitForSeconds(6);
-        RaiseBarrierLaunchpads(2);
+        foreach (var item in launchpads)
+        {
+            if (item.raised)
+            {
+                return false;
+            }
+        }
+        return true;
     }
     #endregion
 }

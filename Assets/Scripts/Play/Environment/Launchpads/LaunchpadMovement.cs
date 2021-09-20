@@ -8,6 +8,8 @@ public class LaunchpadMovement : MonoBehaviour
     public Transform target;
     public Transform returnTarget;
 
+    public bool raised = false;
+
     void Start()
     {
 
@@ -30,9 +32,18 @@ public class LaunchpadMovement : MonoBehaviour
     {
         while (Vector3.Distance(transform.position, _target.position) > 0.05f)
         {
-            transform.position = Vector3.Lerp(transform.position, _target.position, Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, _target.position, Time.deltaTime);
 
-            yield return null;
+            yield return new WaitForEndOfFrame();
+        }
+
+        if (transform.position == target.position)
+        {
+            raised = true;
+        }
+        else if(transform.position == returnTarget.position)
+        {
+            raised = false;
         }
     }
 }

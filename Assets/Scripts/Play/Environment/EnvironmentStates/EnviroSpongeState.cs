@@ -25,7 +25,8 @@ public class EnviroSpongeState : BaseState
         if (Time.time > nextBarrierRaise)
         {
             nextBarrierRaise = Time.time + enviro.enviroData.barrierRate;
-            enviro.launchpadManager.ChangeLaunchpadsRaised();
+            // ***** Change number as player goes through each cycle
+            enviro.launchpadManager.ActivateBarrierLaunchpads(2);
         }
     }
 

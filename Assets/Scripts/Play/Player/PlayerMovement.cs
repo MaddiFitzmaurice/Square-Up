@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Start State variables
     private Vector3 endPos = new Vector3(-5.0f, 0, -11.8f);
+    private float startSpeed = 3;
 
     private void Start()
     {
@@ -42,13 +43,12 @@ public class PlayerMovement : MonoBehaviour
         canControl = false;
         while (Vector3.Distance(transform.position, _target) > 0.05f)
         {
-            transform.position = Vector3.Lerp(transform.position, _target, Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, _target, startSpeed * Time.deltaTime);
 
             yield return null;
         }
 
         canControl = true;
-        transform.position = _target;
     }
     #endregion
 
