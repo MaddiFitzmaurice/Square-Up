@@ -60,6 +60,7 @@ public class LaunchpadManager : MonoBehaviour
     // Select random barriers and raise them
     public void RaiseBarrierLaunchpads(int _amountToRaise)
     {
+        barriersToRaise.Clear();
         barriersToRaise = GenerateRandom(_amountToRaise);
 
         foreach (int index in barriersToRaise)

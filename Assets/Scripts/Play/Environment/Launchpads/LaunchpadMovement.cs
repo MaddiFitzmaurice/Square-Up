@@ -41,7 +41,7 @@ public class LaunchpadMovement : MonoBehaviour
         {
             raised = true;
         }
-        else if(transform.position == returnTarget.position)
+        else if (transform.position == returnTarget.position)
         {
             raised = false;
         }

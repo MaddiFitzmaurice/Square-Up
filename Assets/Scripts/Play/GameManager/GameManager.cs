@@ -54,4 +54,9 @@ public class GameManager : MonoBehaviour
     {
         gmStateMachine.currentState.LogicUpdate();
     }
+
+    private void FixedUpdate()
+    {
+        gmStateMachine.currentState.PhysicsUpdate();
+    }
 }
