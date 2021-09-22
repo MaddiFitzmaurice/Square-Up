@@ -2,17 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossStartState : MonoBehaviour
+public class BossStartState : BaseState
 {
-    // Start is called before the first frame update
-    void Start()
+    private Boss boss;
+    public BossStartState(Boss _boss)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        boss = _boss;
     }
 }

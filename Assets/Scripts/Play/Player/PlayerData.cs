@@ -12,7 +12,7 @@ public class PlayerData : MonoBehaviour
 
     #region Gravity Data
     public float gravSpeed;
-    public float gravFireReloadRate;
+    public float gravFireDestroyAfter;
     public float gravFireSpeed;
 
     public int gravProjectiles;

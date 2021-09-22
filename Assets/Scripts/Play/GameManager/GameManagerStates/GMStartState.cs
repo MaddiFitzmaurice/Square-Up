@@ -18,7 +18,8 @@ public class GMStartState : BaseState
     public override void Enter()
     {
         player.stateMachine.ChangeState(player.playerStartState);
-        boss.stateMachine.ChangeState(boss.bossWeakState);
+        boss.stateMachine.ChangeState(boss.bossStartState);
+        //enviro.
     }
 
     public override void LogicUpdate()
@@ -26,7 +27,7 @@ public class GMStartState : BaseState
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("Start here");
-            GameManager.instance.gmStateMachine.ChangeState(GameManager.instance.gmSpongeState);
+            GameManager.instance.gmStateMachine.ChangeState(GameManager.instance.gmEvadeState);
         }
     }
 }

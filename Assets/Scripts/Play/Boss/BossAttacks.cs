@@ -10,14 +10,39 @@ public class BossAttacks : MonoBehaviour
     private int projectilesToPool;
 
     private Boss boss;
+
+    // String name for types of attacks
+    public string singleFire = "SingleFire";
+    public string areaFire = "AreaFire";
+
+    // All projectiles available
     private List<GameObject> projectiles;
+
+    // Area Fire projectiles
+    private List<GameObject> areaProjectiles;
 
     private void Start()
     {
         boss = GetComponent<Boss>();
 
-        SingleFirePoolingSetup();
+        ProjectilePoolingSetup();
+        
+        areaProjectiles = new List<GameObject>();
+}
+
+    // Start Boss's specified attack
+    public void StartAttack(string _methodName, float _startTime, float _repeatRate)
+    {
+        InvokeRepeating(_methodName, _startTime, _repeatRate);
     }
+
+    // Stop Boss's current attack
+    public void StopAttack()
+    {
+        CancelInvoke();
+    }
+
+    #region Single Fire
 
     public void SingleFire()
     {
@@ -33,24 +58,13 @@ public class BossAttacks : MonoBehaviour
         }
     }
 
-    // ******Repurpose this into a general start attack that takes a string method name
-    public void StartSingleFire()
+    // Set up for attacks that use basic projectiles (Single Fire & Area Fire)
+    private void ProjectilePoolingSetup()
     {
-        InvokeRepeating("SingleFire", boss.bossData.bpStartTime, boss.bossData.bpFireRate);
-    }
-
-    // *****Change this to stop attacking
-    public void StopSingleFire()
-    {
-        CancelInvoke();
-    }
-
-    private void SingleFirePoolingSetup()
-    {
-        // Single Fire projectile data setup
+        // Basic projectile data setup
         BasicProjectile basicProjData = basicProjectile.GetComponent<BasicProjectile>();
         basicProjData.speed = boss.bossData.bpSpeed;
-        basicProjData.reloadRate = boss.bossData.bpReloadRate;
+        basicProjData.destroyAfter = boss.bossData.bpDestroyAfter;
 
         // Object pooling setup
         projectiles = new List<GameObject>();
@@ -58,4 +72,43 @@ public class BossAttacks : MonoBehaviour
         projectiles = ObjectPooler.CreateObjectPool(projectilesToPool, basicProjectile);
         projectiles = ObjectPooler.AssignParentGrouping(projectiles, basicProjectileGrouping);
     }
+
+    #endregion
+
+    #region Area Fire
+
+    // Shoot 8 projectiles in 8 directions
+    public void AreaFire()
+    {
+        areaProjectiles.Clear();
+
+        for (int i = 0; i < 8; i++)
+        {
+            GameObject areaProjectile = ObjectPooler.GetPooledObject(projectiles);
+
+            // Keep looking until projectile is not null
+            while (areaProjectile == null)
+            {
+                
+                areaProjectile = ObjectPooler.GetPooledObject(projectiles);
+            }
+
+            // Activate it so it is not picked up again on next iteration
+            areaProjectile.gameObject.SetActive(true);
+            areaProjectiles.Add(areaProjectile);
+        }
+
+        float angle = 0;
+
+        foreach (var proj in areaProjectiles)
+        {
+            angle += 45;
+            proj.transform.position = transform.position;
+            proj.transform.rotation = transform.rotation;
+            proj.GetComponent<BasicProjectile>().dir = Quaternion.Euler(0, angle, 0) * Vector3.forward;
+            proj.SetActive(true);
+        }   
+    }
+
+    #endregion
 }

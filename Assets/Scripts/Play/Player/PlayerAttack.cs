@@ -19,7 +19,7 @@ public class PlayerAttack : MonoBehaviour
         // Projectile data setup
         BasicProjectile projData = projectile.GetComponent<BasicProjectile>();
         projData.speed = player.playerData.gravFireSpeed;
-        projData.reloadRate = player.playerData.gravFireReloadRate;
+        projData.destroyAfter = player.playerData.gravFireDestroyAfter;
 
         // Object pooling setup
         projectiles = new List<GameObject>();

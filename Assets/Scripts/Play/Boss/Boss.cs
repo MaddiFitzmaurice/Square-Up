@@ -8,6 +8,8 @@ public class Boss : MonoBehaviour
     public StateMachine stateMachine;
 
     // Boss's states
+    public BossStartState bossStartState;
+    public BossNoGravState bossNoGravState;
     public BossSpongeState bossSpongeState;
     public BossWeakState bossWeakState;
 
@@ -31,11 +33,13 @@ public class Boss : MonoBehaviour
         bossHealthManager = GetComponent<BossHealthManager>();
 
         // Create boss's states
+        bossStartState = new BossStartState(this);
+        bossNoGravState = new BossNoGravState(this);
         bossSpongeState = new BossSpongeState(this);
         bossWeakState = new BossWeakState(this);
 
         // Create boss's state machine
-        stateMachine = new StateMachine(bossSpongeState);
+        stateMachine = new StateMachine(bossStartState);
 
         // Get reference to player
         player = FindObjectOfType<Player>();

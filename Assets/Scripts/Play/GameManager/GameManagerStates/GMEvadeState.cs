@@ -18,7 +18,7 @@ public class GMEvadeState : BaseState
     public override void Enter()
     {
         player.stateMachine.ChangeState(player.playerNoGravState);
-        //boss.
+        boss.stateMachine.ChangeState(boss.bossNoGravState);
         enviro.stateMachine.ChangeState(enviro.enviroEvadeState);
     }
 }

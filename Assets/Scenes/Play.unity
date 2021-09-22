@@ -945,6 +945,8 @@ MonoBehaviour:
   basicProjectile: {fileID: 4945062170482623835, guid: 30e8d64a9d9e5cd41975993ea385c05f,
     type: 3}
   basicProjectileGrouping: {fileID: 207013895}
+  singleFire: SingleFire
+  areaFire: AreaFire
 --- !u!114 &370257847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -960,11 +962,12 @@ MonoBehaviour:
   health: 0
   shieldHealthMax: 15
   shieldHealth: 0
-  basicProjectiles: 10
-  bpStartTime: 1
+  basicProjectiles: 24
+  bpStartTime: 2
   bpFireRate: 0.5
-  bpReloadRate: 2
-  bpSpeed: 15
+  bpDestroyAfter: 1
+  bpSpeed: 30
+  areaFireRate: 1
 --- !u!114 &370257848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1645,7 +1648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 5
   gravSpeed: 10
-  gravFireReloadRate: 2
+  gravFireDestroyAfter: 2
   gravFireSpeed: 15
   gravProjectiles: 5
   noGravSpeed: 0.1

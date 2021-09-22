@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     // State machine
     public StateMachine gmStateMachine;
     public GMStartState gmStartState;
+    public GMEvadeState gmEvadeState;
     public GMSpongeState gmSpongeState;
     public GMAttackState gmAttackState;
 
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
     {
         // Set up state machine and states
         gmStartState = new GMStartState(player, boss, enviro);
+        gmEvadeState = new GMEvadeState(player, boss, enviro);
         gmSpongeState = new GMSpongeState(player, boss, enviro);
         gmAttackState = new GMAttackState(player, boss, enviro);
         gmStateMachine = new StateMachine(gmStartState);

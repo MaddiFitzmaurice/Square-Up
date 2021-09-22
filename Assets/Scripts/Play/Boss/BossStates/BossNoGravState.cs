@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossSpongeState : BaseState
+public class BossNoGravState : BaseState
 {
     private Boss boss;
 
-    
-
-    public BossSpongeState(Boss _boss)
+    public BossNoGravState(Boss _boss)
     {
         boss = _boss;
     }
@@ -21,19 +19,15 @@ public class BossSpongeState : BaseState
 
     public override void LogicUpdate()
     {
-        if (boss.bossData.shieldHealth == 0)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            GameManager.instance.gmStateMachine.ChangeState(GameManager.instance.gmAttackState);
+            boss.bossAttacks.StopAttack();
+            boss.bossAttacks.StartAttack(boss.bossAttacks.areaFire, boss.bossData.bpStartTime, boss.bossData.areaFireRate);
         }
     }
 
     public override void PhysicsUpdate()
     {
         boss.bossMovement.LookAtPlayer();
-    }
-
-    public override void Exit()
-    {
-        boss.bossAttacks.StopAttack();
     }
 }

@@ -15,7 +15,11 @@ public class BossData : MonoBehaviour
 
     public float bpStartTime;
     public float bpFireRate;
-    public float bpReloadRate;
+    public float bpDestroyAfter;
     public float bpSpeed;
+    #endregion
+
+    #region No Grav State Data
+    public float areaFireRate;
     #endregion
 }

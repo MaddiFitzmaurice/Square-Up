@@ -5,12 +5,12 @@ using UnityEngine;
 public class BasicProjectile : MonoBehaviour
 {
     public float speed;
-    public float reloadRate;
+    public float destroyAfter;
     public Vector3 dir;
 
     private void OnEnable()
     {
-        Invoke("Destroy", reloadRate);
+        Invoke("Destroy", destroyAfter);
     }
 
     private void Update()
