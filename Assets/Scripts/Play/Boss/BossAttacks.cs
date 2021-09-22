@@ -102,10 +102,11 @@ public class BossAttacks : MonoBehaviour
 
         foreach (var proj in areaProjectiles)
         {
+            proj.SetActive(false);
             angle += 45;
             proj.transform.position = transform.position;
-            proj.transform.rotation = transform.rotation;
-            proj.GetComponent<BasicProjectile>().dir = Quaternion.Euler(0, angle, 0) * Vector3.forward;
+            proj.transform.rotation = transform.rotation * Quaternion.Euler(0, angle, 0);
+            proj.GetComponent<BasicProjectile>().dir = Vector3.forward;
             proj.SetActive(true);
         }   
     }

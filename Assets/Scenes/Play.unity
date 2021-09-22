@@ -966,8 +966,8 @@ MonoBehaviour:
   bpStartTime: 2
   bpFireRate: 0.5
   bpDestroyAfter: 1
-  bpSpeed: 30
-  areaFireRate: 1
+  bpSpeed: 15
+  areaFireRate: 2
 --- !u!114 &370257848
 MonoBehaviour:
   m_ObjectHideFlags: 0
