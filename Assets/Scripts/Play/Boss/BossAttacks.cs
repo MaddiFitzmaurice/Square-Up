@@ -4,36 +4,53 @@ using UnityEngine;
 
 public class BossAttacks : MonoBehaviour
 {
+    // Single and Area Fire Prefab and Parent Transform Grouper
     public GameObject basicProjectile;
     public Transform basicProjectileGrouping;
 
-    private int projectilesToPool;
-
-    private Boss boss;
+    // MineField Prefab and Parent Transform Grouper
+    public GameObject mine;
+    public Transform mineGrouping;
 
     // String name for types of attacks
     public string singleFire = "SingleFire";
     public string areaFire = "AreaFire";
+    public string mineField = "MineField";
 
-    // All projectiles available
+    private int projectilesToPool;
+    private int minesToPool;
+
+    private Boss boss;
+
+    // Single Fire projectiles available
     private List<GameObject> projectiles;
 
-    // Area Fire projectiles
+    // Mines available
+    private List<GameObject> mines;
+
+    // Area Fire projectiles available
     private List<GameObject> areaProjectiles;
 
     private void Start()
     {
         boss = GetComponent<Boss>();
 
+        // Pool basic projectile and mine prefabs and area fire setup
         ProjectilePoolingSetup();
-        
+        MineFieldPoolingSetup();
         areaProjectiles = new List<GameObject>();
 }
 
-    // Start Boss's specified attack
+    // Start Boss's specified repeating attack (Single Fire, Area Fire)
     public void StartAttack(string _methodName, float _startTime, float _repeatRate)
     {
         InvokeRepeating(_methodName, _startTime, _repeatRate);
+    }
+
+    // Start Boss's singular attack (Mine Field, Tracking) 
+    public void StartSingleAttack(string _methodName, float _startTime)
+    {
+        Invoke(_methodName, _startTime);
     }
 
     // Stop Boss's current attack
@@ -89,7 +106,6 @@ public class BossAttacks : MonoBehaviour
             // Keep looking until projectile is not null
             while (areaProjectile == null)
             {
-                
                 areaProjectile = ObjectPooler.GetPooledObject(projectiles);
             }
 
@@ -100,6 +116,7 @@ public class BossAttacks : MonoBehaviour
 
         float angle = 0;
 
+        // Shoot each projectile in a distinct direction
         foreach (var proj in areaProjectiles)
         {
             proj.SetActive(false);
@@ -109,6 +126,48 @@ public class BossAttacks : MonoBehaviour
             proj.GetComponent<BasicProjectile>().dir = Vector3.forward;
             proj.SetActive(true);
         }   
+    }
+
+    #endregion
+
+    #region MineField
+    private void MineFieldPoolingSetup()
+    {
+        // Basic mine data setup
+        Mine mineData = mine.GetComponent<Mine>();
+        mineData.speed = boss.bossData.mineSpeed;
+        mineData.destroyAfter = boss.bossData.mineDestroyAfter;
+
+        // Object pooling setup
+        mines = new List<GameObject>();
+        minesToPool = boss.bossData.mineLocations.Count;
+        mines = ObjectPooler.CreateObjectPool(minesToPool, mine);
+        mines = ObjectPooler.AssignParentGrouping(mines, mineGrouping);
+
+        // Set final locations for each pooled mine
+        for (int i = 0; i < mines.Count; i++)
+        {
+            mines[i].GetComponent<Mine>().finalPosition = boss.bossData.mineLocations[i];
+        }
+    }
+
+    public void MineField()
+    {
+        for (int i = 0; i < minesToPool; i++)
+        {
+            GameObject pooledMine = ObjectPooler.GetPooledObject(mines);
+
+            // Keep looking until projectile is not null
+            while (pooledMine == null)
+            {
+                pooledMine = ObjectPooler.GetPooledObject(projectiles);
+            }
+
+            // Activate it so it is not picked up again on next for() iteration
+            pooledMine.transform.position = transform.position;
+            pooledMine.transform.rotation = transform.rotation;
+            pooledMine.gameObject.SetActive(true);
+        }
     }
 
     #endregion

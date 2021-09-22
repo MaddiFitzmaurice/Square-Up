@@ -21,5 +21,10 @@ public class BossData : MonoBehaviour
 
     #region No Grav State Data
     public float areaFireRate;
+
+    public float mineSpeed;
+    public float mineDestroyAfter;
+    public float mineStartTime;
+    public List<Transform> mineLocations;
     #endregion
 }
