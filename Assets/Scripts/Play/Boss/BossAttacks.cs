@@ -49,6 +49,48 @@ public class BossAttacks : MonoBehaviour
         areaProjectiles = new List<GameObject>();
 }
 
+    // Chain Boss's attack phases with timers
+    public void BeginAttackPhases()
+    {
+        StartCoroutine(AttackPhases());
+    }
+
+    IEnumerator AttackPhases()
+    {
+        StartCoroutine(PhaseOne());
+        yield return new WaitForSeconds(boss.bossData.phaseOneTime);
+        StartCoroutine(PhaseTwo());
+        yield return new WaitForSeconds(boss.bossData.phaseTwoTime);
+        StartCoroutine(PhaseThree());
+        yield return new WaitForSeconds (boss.bossData.phaseThreeTime);
+        StopAttack();
+        yield break;
+    }
+
+    // Single Fire Phase
+    IEnumerator PhaseOne()
+    {
+        StopAttack();
+        StartAttack(boss.bossAttacks.singleFire, boss.bossData.bpStartTime, boss.bossData.bpFireRate);
+        yield break;
+    }
+
+    // Area Fire Phase
+    IEnumerator PhaseTwo()
+    {
+        boss.bossAttacks.StopAttack();
+        boss.bossAttacks.StartAttack(boss.bossAttacks.areaFire, boss.bossData.bpStartTime, boss.bossData.areaFireRate);
+        yield break;
+    }
+
+    IEnumerator PhaseThree()
+    {
+        boss.bossAttacks.StopAttack();
+        boss.bossAttacks.StartSingleAttack(boss.bossAttacks.mineField, boss.bossData.mineStartTime);
+        boss.bossAttacks.StartSingleAttack(boss.bossAttacks.trackingFire, boss.bossData.trackerStartTime);
+        yield break;
+    }
+
     // Start Boss's specified repeating attack (Single Fire, Area Fire)
     public void StartAttack(string _methodName, float _startTime, float _repeatRate)
     {

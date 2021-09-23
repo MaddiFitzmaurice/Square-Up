@@ -14,28 +14,12 @@ public class BossNoGravState : BaseState
     public override void Enter()
     {
         boss.bossHealthManager.ResetShields();
-        boss.bossAttacks.StartAttack(boss.bossAttacks.singleFire, boss.bossData.bpStartTime, boss.bossData.bpFireRate);
+        boss.bossAttacks.BeginAttackPhases();
     }
 
     public override void LogicUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            boss.bossAttacks.StopAttack();
-            boss.bossAttacks.StartAttack(boss.bossAttacks.areaFire, boss.bossData.bpStartTime, boss.bossData.areaFireRate);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            boss.bossAttacks.StopAttack();
-            boss.bossAttacks.StartSingleAttack(boss.bossAttacks.mineField, boss.bossData.mineStartTime);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Backspace))
-        {
-            boss.bossAttacks.StopAttack();
-            boss.bossAttacks.StartSingleAttack(boss.bossAttacks.trackingFire, boss.bossData.trackerStartTime);
-        }
+        
     }
 
     public override void PhysicsUpdate()

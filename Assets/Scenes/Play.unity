@@ -968,6 +968,9 @@ MonoBehaviour:
   health: 0
   shieldHealthMax: 15
   shieldHealth: 0
+  phaseOneTime: 15
+  phaseTwoTime: 15
+  phaseThreeTime: 15
   basicProjectiles: 24
   bpStartTime: 2
   bpFireRate: 0.5

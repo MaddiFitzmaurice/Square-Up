@@ -10,6 +10,12 @@ public class BossData : MonoBehaviour
     public int shieldHealth;
     #endregion
 
+    #region Boss Attacking Phase Times
+    public int phaseOneTime;
+    public int phaseTwoTime;
+    public int phaseThreeTime;
+    #endregion
+
     #region Sponge State Data
     public int basicProjectiles;
 
