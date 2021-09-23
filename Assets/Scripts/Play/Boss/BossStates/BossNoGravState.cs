@@ -30,6 +30,12 @@ public class BossNoGravState : BaseState
             boss.bossAttacks.StopAttack();
             boss.bossAttacks.StartSingleAttack(boss.bossAttacks.mineField, boss.bossData.mineStartTime);
         }
+
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            boss.bossAttacks.StopAttack();
+            boss.bossAttacks.StartSingleAttack(boss.bossAttacks.trackingFire, boss.bossData.trackerStartTime);
+        }
     }
 
     public override void PhysicsUpdate()

@@ -12,10 +12,14 @@ public class BossAttacks : MonoBehaviour
     public GameObject mine;
     public Transform mineGrouping;
 
+    // Tracking Fire Prefab
+    public TrackerProjectile trackerProjPrefab;
+
     // String name for types of attacks
     public string singleFire = "SingleFire";
     public string areaFire = "AreaFire";
     public string mineField = "MineField";
+    public string trackingFire = "TrackingFire";
 
     private int projectilesToPool;
     private int minesToPool;
@@ -31,13 +35,17 @@ public class BossAttacks : MonoBehaviour
     // Area Fire projectiles available
     private List<GameObject> areaProjectiles;
 
+    // Tracking Projectile
+    private TrackerProjectile trackerProjectile;
+
     private void Start()
     {
         boss = GetComponent<Boss>();
 
-        // Pool basic projectile and mine prefabs and area fire setup
+        // Attack setups
         ProjectilePoolingSetup();
         MineFieldPoolingSetup();
+        TrackingFireSetup();
         areaProjectiles = new List<GameObject>();
 }
 
@@ -165,10 +173,29 @@ public class BossAttacks : MonoBehaviour
 
             // Activate it so it is not picked up again on next for() iteration
             pooledMine.transform.position = transform.position;
-            pooledMine.transform.rotation = transform.rotation;
             pooledMine.gameObject.SetActive(true);
         }
     }
 
+    #endregion
+
+    #region Tracking Fire
+    private void TrackingFireSetup()
+    {
+        // Create tracker projectile
+        trackerProjectile = Instantiate(trackerProjPrefab, transform.position, Quaternion.identity);
+        trackerProjectile.gameObject.SetActive(false);
+        trackerProjectile.player = boss.player;
+        trackerProjectile.speed = boss.bossData.trackerSpeed;
+        trackerProjectile.destroyAfter = boss.bossData.trackerDestroyAfter;
+    }
+
+    public void TrackingFire()
+    {
+        // Reset position and rotation before firing
+        trackerProjectile.transform.position = transform.position;
+        trackerProjectile.transform.rotation = Quaternion.identity;
+        trackerProjectile.gameObject.SetActive(true);
+    }
     #endregion
 }

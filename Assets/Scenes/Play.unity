@@ -947,9 +947,12 @@ MonoBehaviour:
   basicProjectileGrouping: {fileID: 207013895}
   mine: {fileID: 4945062170482623835, guid: 0e7a15578f2c06e449cd739b6c8c5485, type: 3}
   mineGrouping: {fileID: 767567880}
+  trackerProjPrefab: {fileID: 114833560980297214, guid: ecc73ebf0fd68d94cb74f6f9ca333e83,
+    type: 3}
   singleFire: SingleFire
   areaFire: AreaFire
   mineField: MineField
+  trackingFire: TrackingFire
 --- !u!114 &370257847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -972,7 +975,7 @@ MonoBehaviour:
   bpSpeed: 15
   areaFireRate: 2
   mineSpeed: 10
-  mineDestroyAfter: 5
+  mineDestroyAfter: 15
   mineStartTime: 1
   mineLocations:
   - {fileID: 1322985257}
@@ -983,6 +986,9 @@ MonoBehaviour:
   - {fileID: 449682342}
   - {fileID: 1317248602}
   - {fileID: 1771782005}
+  trackerSpeed: 5
+  trackerDestroyAfter: 15
+  trackerStartTime: 2
 --- !u!114 &370257848
 MonoBehaviour:
   m_ObjectHideFlags: 0

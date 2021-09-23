@@ -26,5 +26,9 @@ public class BossData : MonoBehaviour
     public float mineDestroyAfter;
     public float mineStartTime;
     public List<Transform> mineLocations;
+
+    public float trackerSpeed;
+    public float trackerDestroyAfter;
+    public float trackerStartTime;
     #endregion
 }
