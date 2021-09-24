@@ -5,18 +5,14 @@ using UnityEngine;
 public class BossData : MonoBehaviour
 {
     #region Boss Health Data
+    [Header("Health Data")]
     public int health;
     public int shieldHealthMax;
     public int shieldHealth;
     #endregion
 
-    #region Boss Attacking Phase Times
-    public int phaseOneTime;
-    public int phaseTwoTime;
-    public int phaseThreeTime;
-    #endregion
-
     #region Sponge State Data
+    [Header("Basic Projectile Data")]
     public int basicProjectiles;
 
     public float bpStartTime;
@@ -26,13 +22,16 @@ public class BossData : MonoBehaviour
     #endregion
 
     #region No Grav State Data
+    [Header("Area Fire Data")]
     public float areaFireRate;
 
+    [Header("Mine Field Data")]
     public float mineSpeed;
     public float mineDestroyAfter;
     public float mineStartTime;
     public List<Transform> mineLocations;
 
+    [Header("Tracking Fire Data")]
     public float trackerSpeed;
     public float trackerDestroyAfter;
     public float trackerStartTime;

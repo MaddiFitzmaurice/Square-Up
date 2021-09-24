@@ -6,19 +6,38 @@ public class GMEvadeState : BaseState
 {
     private Player player;
     private Boss boss;
-    private EnvironmentManager enviro;
+    private EnvironmentManager enviroManager;
 
     public GMEvadeState(Player _player, Boss _boss, EnvironmentManager _enviro)
     {
         player = _player;
         boss = _boss;
-        enviro = _enviro;
+        enviroManager = _enviro;
     }
 
     public override void Enter()
     {
         player.stateMachine.ChangeState(player.playerNoGravState);
         boss.stateMachine.ChangeState(boss.bossNoGravState);
-        enviro.stateMachine.ChangeState(enviro.enviroEvadeState);
+        enviroManager.stateMachine.ChangeState(enviroManager.enviroEvadeState);
+    }
+
+    public override void LogicUpdate()
+    {
+        if (boss.bossAttacks.chainComplete)
+        {
+            GameManager.instance.gmStateMachine.ChangeState(GameManager.instance.gmSpongeState);
+        }
+
+        player.stateMachine.currentState.LogicUpdate();
+        boss.stateMachine.currentState.LogicUpdate();
+        enviroManager.stateMachine.currentState.LogicUpdate();
+    }
+
+    public override void PhysicsUpdate()
+    {
+        player.stateMachine.currentState.PhysicsUpdate();
+        boss.stateMachine.currentState.PhysicsUpdate();
+        enviroManager.stateMachine.currentState.PhysicsUpdate();
     }
 }

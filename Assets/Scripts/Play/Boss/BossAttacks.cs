@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BossAttacks : MonoBehaviour
 {
+    public bool chainComplete;
+
     // Single and Area Fire Prefab and Parent Transform Grouper
     public GameObject basicProjectile;
     public Transform basicProjectileGrouping;
@@ -47,23 +49,28 @@ public class BossAttacks : MonoBehaviour
         MineFieldPoolingSetup();
         TrackingFireSetup();
         areaProjectiles = new List<GameObject>();
-}
 
+        chainComplete = false;
+    }
+    #region Chain Attacks
     // Chain Boss's attack phases with timers
     public void BeginAttackPhases()
     {
+        chainComplete = false;
         StartCoroutine(AttackPhases());
     }
 
+    // Coroutine chain for Boss's attacks
     IEnumerator AttackPhases()
     {
         StartCoroutine(PhaseOne());
-        yield return new WaitForSeconds(boss.bossData.phaseOneTime);
+        yield return new WaitForSeconds(GameManager.instance.gameData.phaseOneTime);
         StartCoroutine(PhaseTwo());
-        yield return new WaitForSeconds(boss.bossData.phaseTwoTime);
+        yield return new WaitForSeconds(GameManager.instance.gameData.phaseTwoTime);
         StartCoroutine(PhaseThree());
-        yield return new WaitForSeconds (boss.bossData.phaseThreeTime);
+        yield return new WaitForSeconds(GameManager.instance.gameData.phaseThreeTime);
         StopAttack();
+        chainComplete = true;
         yield break;
     }
 
@@ -90,6 +97,8 @@ public class BossAttacks : MonoBehaviour
         boss.bossAttacks.StartSingleAttack(boss.bossAttacks.trackingFire, boss.bossData.trackerStartTime);
         yield break;
     }
+
+    #endregion
 
     // Start Boss's specified repeating attack (Single Fire, Area Fire)
     public void StartAttack(string _methodName, float _startTime, float _repeatRate)

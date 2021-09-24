@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     private Player player;
     private EnvironmentManager enviro;
 
+    public GameData gameData;
+
     // State machine
     public StateMachine gmStateMachine;
     public GMStartState gmStartState;
@@ -38,6 +40,9 @@ public class GameManager : MonoBehaviour
         player = FindObjectOfType<Player>();
         boss = FindObjectOfType<Boss>();
         enviro = FindObjectOfType<EnvironmentManager>();
+
+        // Get data reference
+        gameData = GetComponent<GameData>();
     }
 
     private void Start()
@@ -51,7 +56,6 @@ public class GameManager : MonoBehaviour
         gmStateMachine.ChangeState(gmStartState);
     }
 
-    // **** CHANGE LATER --> Control all state machine updates from here and in GM states
     private void Update()
     {
         gmStateMachine.currentState.LogicUpdate();

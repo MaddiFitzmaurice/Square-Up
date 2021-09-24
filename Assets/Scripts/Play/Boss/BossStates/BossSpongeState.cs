@@ -6,8 +6,6 @@ public class BossSpongeState : BaseState
 {
     private Boss boss;
 
-    
-
     public BossSpongeState(Boss _boss)
     {
         boss = _boss;
@@ -21,10 +19,7 @@ public class BossSpongeState : BaseState
 
     public override void LogicUpdate()
     {
-        if (boss.bossData.shieldHealth == 0)
-        {
-            GameManager.instance.gmStateMachine.ChangeState(GameManager.instance.gmAttackState);
-        }
+        
     }
 
     public override void PhysicsUpdate()

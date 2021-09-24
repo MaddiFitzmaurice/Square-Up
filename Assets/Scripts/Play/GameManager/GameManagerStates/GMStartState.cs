@@ -26,8 +26,18 @@ public class GMStartState : BaseState
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("Start here");
             GameManager.instance.gmStateMachine.ChangeState(GameManager.instance.gmEvadeState);
         }
+
+        player.stateMachine.currentState.LogicUpdate();
+        boss.stateMachine.currentState.LogicUpdate();
+        //enviroManager.stateMachine.currentState.LogicUpdate();
+    }
+
+    public override void PhysicsUpdate()
+    {
+        player.stateMachine.currentState.PhysicsUpdate();
+        boss.stateMachine.currentState.PhysicsUpdate();
+        //enviroManager.stateMachine.currentState.PhysicsUpdate();
     }
 }

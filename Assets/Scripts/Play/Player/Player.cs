@@ -39,14 +39,4 @@ public class Player : MonoBehaviour
     {
        
     }
-
-    private void Update()
-    {
-        stateMachine.currentState.LogicUpdate();
-    }
-
-    private void FixedUpdate()
-    {
-        stateMachine.currentState.PhysicsUpdate();
-    }
 }

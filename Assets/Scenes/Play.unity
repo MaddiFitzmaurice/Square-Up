@@ -942,6 +942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 240f841e45e0bf845840c1cf445266e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chainComplete: 0
   basicProjectile: {fileID: 4945062170482623835, guid: 30e8d64a9d9e5cd41975993ea385c05f,
     type: 3}
   basicProjectileGrouping: {fileID: 207013895}
@@ -968,9 +969,6 @@ MonoBehaviour:
   health: 0
   shieldHealthMax: 15
   shieldHealth: 0
-  phaseOneTime: 15
-  phaseTwoTime: 15
-  phaseThreeTime: 15
   basicProjectiles: 24
   bpStartTime: 2
   bpFireRate: 0.5
@@ -1230,6 +1228,7 @@ GameObject:
   m_Component:
   - component: {fileID: 630163038}
   - component: {fileID: 630163037}
+  - component: {fileID: 630163039}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1249,6 +1248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14079cf9912375479aea3a3b559ac32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameData: {fileID: 0}
 --- !u!4 &630163038
 Transform:
   m_ObjectHideFlags: 0
@@ -1263,6 +1263,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &630163039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630163036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f5c0f7b9f7a0b048a4707894f8db875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  phaseOneTime: 15
+  phaseTwoTime: 15
+  phaseThreeTime: 15
+  spongeStateFailedTime: 15
+  attackStateFailedTime: 15
 --- !u!1 &646277228
 GameObject:
   m_ObjectHideFlags: 0
