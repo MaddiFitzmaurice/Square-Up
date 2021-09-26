@@ -24,6 +24,7 @@ public class BossData : MonoBehaviour
     #region No Grav State Data
     [Header("Area Fire Data")]
     public float areaFireRate;
+    public float angularVelocity;
 
     [Header("Mine Field Data")]
     public float mineSpeed;

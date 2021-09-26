@@ -943,6 +943,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chainComplete: 0
+  isSpinning: 0
   basicProjectile: {fileID: 4945062170482623835, guid: 30e8d64a9d9e5cd41975993ea385c05f,
     type: 3}
   basicProjectileGrouping: {fileID: 207013895}
@@ -973,8 +974,9 @@ MonoBehaviour:
   bpStartTime: 2
   bpFireRate: 0.5
   bpDestroyAfter: 1
-  bpSpeed: 15
+  bpSpeed: 20
   areaFireRate: 2
+  angularVelocity: 50
   mineSpeed: 10
   mineDestroyAfter: 15
   mineStartTime: 1

@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class BossAttacks : MonoBehaviour
 {
+    // Flags
     public bool chainComplete;
+    public bool isSpinning;
 
     // Single and Area Fire Prefab and Parent Transform Grouper
     public GameObject basicProjectile;
@@ -51,12 +53,14 @@ public class BossAttacks : MonoBehaviour
         areaProjectiles = new List<GameObject>();
 
         chainComplete = false;
+        isSpinning = false;
     }
     #region Chain Attacks
     // Chain Boss's attack phases with timers
     public void BeginAttackPhases()
     {
         chainComplete = false;
+        isSpinning = false;
         StartCoroutine(AttackPhases());
     }
 
@@ -66,7 +70,9 @@ public class BossAttacks : MonoBehaviour
         StartCoroutine(PhaseOne());
         yield return new WaitForSeconds(GameManager.instance.gameData.phaseOneTime);
         StartCoroutine(PhaseTwo());
+        isSpinning = true;
         yield return new WaitForSeconds(GameManager.instance.gameData.phaseTwoTime);
+        isSpinning = false;
         StartCoroutine(PhaseThree());
         yield return new WaitForSeconds(GameManager.instance.gameData.phaseThreeTime);
         StopAttack();

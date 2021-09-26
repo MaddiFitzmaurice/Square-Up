@@ -24,6 +24,13 @@ public class BossNoGravState : BaseState
 
     public override void PhysicsUpdate()
     {
-        boss.bossMovement.LookAtPlayer();
+        if (boss.bossAttacks.isSpinning)
+        {
+            boss.bossMovement.SpinAround();
+        }
+        else
+        {
+            boss.bossMovement.LookAtPlayer();
+        }
     }
 }
