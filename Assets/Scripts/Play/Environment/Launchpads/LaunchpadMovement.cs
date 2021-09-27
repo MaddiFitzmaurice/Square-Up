@@ -8,22 +8,30 @@ public class LaunchpadMovement : MonoBehaviour
     public Transform target;
     public Transform returnTarget;
 
+    // Player Launch Trigger Box
+    public BoxCollider launchTrigger;
+
+    // Raised flag
     public bool raised = false;
 
-    void Start()
+    private void Start()
     {
-
+        // Deactivate trigger box at beginning of game
+        launchTrigger.enabled = false;
     }
 
+    #region SpongeState Functions
     // Launchpad comes out of wall to act as barrier for player
     public void BarrierLaunchpad()
     {
+        StopAllCoroutines();
         StartCoroutine(Move(target));
     }
 
     // Launchpad retracts inside wall
     public void RetractLaunchpad()
     {
+        StopAllCoroutines();
         StartCoroutine(Move(returnTarget));
     }
 
@@ -46,4 +54,32 @@ public class LaunchpadMovement : MonoBehaviour
             raised = false;
         }
     }
+    #endregion
+
+    #region AttackState Functions
+    // Launch Movement
+    IEnumerator Launch()
+    {
+        while (Vector3.Distance(transform.position, target.position) > 0.05f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, target.position, Time.deltaTime * 10);
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        while (Vector3.Distance(transform.position, returnTarget.position) > 0.05f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, returnTarget.position, Time.deltaTime * 10);
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        launchTrigger.enabled = false;
+    }
+
+    public void LaunchLaunchpad()
+    {
+        StartCoroutine(Launch());
+    }
+    #endregion
 }

@@ -2,27 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossWeakState : BaseState
+public class PlayerAttackState : BaseState
 {
-    private Boss boss;
+    private Player player;
 
-    public BossWeakState(Boss _boss)
+    public PlayerAttackState(Player _player)
     {
-        boss = _boss;
+        player = _player;
     }
 
     public override void Enter()
     {
-        boss.bossMovement.ResetRotation();
+
     }
 
     public override void LogicUpdate()
     {
-       
+
     }
 
     public override void PhysicsUpdate()
     {
-      
+        player.playerMovement.GravMove();
     }
+
 }

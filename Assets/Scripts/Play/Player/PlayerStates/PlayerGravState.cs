@@ -14,8 +14,6 @@ public class PlayerGravState : BaseState
 
     public override void Enter()
     {
-        // Stop player's
-        //player.playerMovement.ResetPlayerVelocity();
         
     }
 
@@ -34,7 +32,6 @@ public class PlayerGravState : BaseState
         }
     }
 
-    // Maybe move the logic to playerMovement instead and use a player.playerMovement.Move() here
     public override void PhysicsUpdate()
     {
         player.playerMovement.GravMove();

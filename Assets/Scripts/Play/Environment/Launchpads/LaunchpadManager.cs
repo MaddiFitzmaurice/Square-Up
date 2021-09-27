@@ -11,13 +11,33 @@ public class LaunchpadManager : MonoBehaviour
     // Lists used to pick random launchpads and store them
     private List<int> randomNums;
     private List<int> barriersToRaise;
+    private List<int> launchpadSelection;
 
     private void Start()
     {
         randomNums = new List<int>();
         barriersToRaise = new List<int>();
+        launchpadSelection = new List<int>();
     }
 
+    #region AttackState Functions
+
+    public void InitiateLaunch()
+    {
+        launchpadSelection.Clear();
+        launchpadSelection = GenerateRandom(1);
+        // Activate launch trigger box
+        launchpads[launchpadSelection[0]].launchTrigger.enabled = true;
+        Debug.Log(launchpadSelection[0]);
+    }
+
+    public void Launch()
+    {
+        launchpads[launchpadSelection[0]].LaunchLaunchpad();
+    }
+    #endregion
+
+    #region SpongeState Functions
     // Accessed by Sponge State
     // Number of barriers to raise increases with each cycle
     public void ActivateBarrierLaunchpads(int _numOfBarriers)
@@ -57,7 +77,7 @@ public class LaunchpadManager : MonoBehaviour
         yield break;
     }
 
-    // Select random barriers and raise them
+    // Select random launchpads and raise them to act as barriers
     public void RaiseBarrierLaunchpads(int _amountToRaise)
     {
         barriersToRaise.Clear();
@@ -79,10 +99,10 @@ public class LaunchpadManager : MonoBehaviour
             item.RetractLaunchpad();
         }
     }
+    #endregion
 
     #region Helper Functions
-    // Pick random launchpads to turn into barriers
-    // How many to raise is decided by Sponge State
+    // Pick random launchpad(s) to turn into barriers or launcher
     private List<int> GenerateRandom(int _amount)
     {
         randomNums.Clear();

@@ -13,6 +13,6 @@ public class EnviroEvadeState : BaseState
 
     public override void Enter()
     {
-        
+        enviro.launchpadManager.RetractAllLaunchpads();
     }
 }

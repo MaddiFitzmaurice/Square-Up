@@ -19,7 +19,7 @@ public class GMAttackState : BaseState
 
     public override void Enter()
     {
-        //player.stateMachine.ChangeState(player.playerGravState);
+        player.stateMachine.ChangeState(player.playerAttackState);
         boss.stateMachine.ChangeState(boss.bossWeakState);
         enviroManager.stateMachine.ChangeState(enviroManager.enviroLaunchState);
 
@@ -29,6 +29,15 @@ public class GMAttackState : BaseState
 
     public override void LogicUpdate()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (player.playerAttack.readyToLaunch)
+            {
+                enviroManager.launchpadManager.Launch();
+                player.playerAttack.Launch();
+            }
+        }
+
         // If failed to attack Boss in time, change back to Evade State
         if (time > GameManager.instance.gameData.attackStateFailedTime)
         {
@@ -36,5 +45,16 @@ public class GMAttackState : BaseState
         }
 
         time += Time.deltaTime;
+
+        player.stateMachine.currentState.LogicUpdate();
+        boss.stateMachine.currentState.LogicUpdate();
+        enviroManager.stateMachine.currentState.LogicUpdate();
+    }
+
+    public override void PhysicsUpdate()
+    {
+        player.stateMachine.currentState.PhysicsUpdate();
+        boss.stateMachine.currentState.PhysicsUpdate();
+        enviroManager.stateMachine.currentState.PhysicsUpdate();
     }
 }

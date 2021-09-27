@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public PlayerStartState playerStartState;
     public PlayerGravState playerGravState;
     public PlayerNoGravState playerNoGravState;
+    public PlayerAttackState playerAttackState;
 
     // Player components
     public PlayerAttack playerAttack;
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour
         playerStartState = new PlayerStartState(this);
         playerGravState = new PlayerGravState(this);
         playerNoGravState = new PlayerNoGravState(this);
+        playerAttackState = new PlayerAttackState(this);
 
         // Create player's state machine
         stateMachine = new StateMachine(playerStartState);

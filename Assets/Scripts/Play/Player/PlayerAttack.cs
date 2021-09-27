@@ -7,6 +7,8 @@ public class PlayerAttack : MonoBehaviour
     public GameObject projectile;
     public Transform projectileGrouping;
 
+    public bool readyToLaunch;
+
     private int projectilesToPool;
 
     private Player player;
@@ -26,6 +28,8 @@ public class PlayerAttack : MonoBehaviour
         projectilesToPool = player.playerData.gravProjectiles;
         projectiles = ObjectPooler.CreateObjectPool(projectilesToPool, projectile);
         projectiles = ObjectPooler.AssignParentGrouping(projectiles, projectileGrouping);
+
+        readyToLaunch = false;
     }
 
     public void FireProjectile()
@@ -54,6 +58,31 @@ public class PlayerAttack : MonoBehaviour
             }
         
             projectile.SetActive(true);
+        }
+    }
+
+    // When on a launchpad in AttackState, launch
+    public void Launch()
+    {
+        Vector3 launchDir = player.playerMovement.GetPlayerFireDirection();
+        player.playerRb.AddForce(launchDir * player.playerData.launchSpeed, ForceMode.Impulse);
+    }
+
+    // When Player enters a launch trigger, flag it
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("LaunchTrigger"))
+        {
+            readyToLaunch = true;
+        }
+    }
+
+    // When Player exits a launch trigger, unflag it
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("LaunchTrigger"))
+        {
+            readyToLaunch = false;
         }
     }
 }

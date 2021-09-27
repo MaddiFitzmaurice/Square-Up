@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class GameData : MonoBehaviour
 {
-    #region No Grav State Game Data
-    [Header("No Grav Boss Attacking Phase Times")]
+    #region NoGravState Game Data
+    [Header("NoGrav Boss Attacking Phase Times")]
     public int phaseOneTime;
     public int phaseTwoTime;
     public int phaseThreeTime;
+    #endregion
+
+    #region AttackState Game Data
+    public int launchpadCountdown;
     #endregion
 
     #region State Timers

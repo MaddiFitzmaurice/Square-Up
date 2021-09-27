@@ -9,6 +9,7 @@ TagManager:
   - PlayerProjectile
   - Launchpad
   - Wall
+  - LaunchTrigger
   layers:
   - Default
   - TransparentFX
