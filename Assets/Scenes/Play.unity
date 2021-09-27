@@ -374,7 +374,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d566b6b6d283f0c41b64719722cc6b67, type: 2}
+  - {fileID: 2100000, guid: 7807342ca0ae91f4a80fa04234ffb1d8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1188,7 +1188,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 94
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &370257845
 MonoBehaviour:
@@ -2245,7 +2245,7 @@ MonoBehaviour:
   health: 5
   gravSpeed: 10
   noGravSpeed: 0.1
-  launchSpeed: 50
+  launchSpeed: 20
   gravFireDestroyAfter: 2
   gravFireSpeed: 15
   gravProjectiles: 5
@@ -2952,7 +2952,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d566b6b6d283f0c41b64719722cc6b67, type: 2}
+  - {fileID: 2100000, guid: 7807342ca0ae91f4a80fa04234ffb1d8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

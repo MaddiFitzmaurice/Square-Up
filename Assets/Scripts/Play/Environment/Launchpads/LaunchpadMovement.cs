@@ -62,14 +62,14 @@ public class LaunchpadMovement : MonoBehaviour
     {
         while (Vector3.Distance(transform.position, target.position) > 0.05f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, target.position, Time.deltaTime * 10);
+            transform.position = Vector3.MoveTowards(transform.position, target.position, Time.deltaTime * 15);
 
             yield return new WaitForEndOfFrame();
         }
 
         while (Vector3.Distance(transform.position, returnTarget.position) > 0.05f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, returnTarget.position, Time.deltaTime * 10);
+            transform.position = Vector3.MoveTowards(transform.position, returnTarget.position, Time.deltaTime * 15);
 
             yield return new WaitForEndOfFrame();
         }
