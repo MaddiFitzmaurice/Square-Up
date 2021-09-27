@@ -12,7 +12,7 @@ public class BossNoGravState : BaseState
     }
 
     public override void Enter()
-    { 
+    {
         boss.bossHealthManager.ResetShields();
         boss.bossAttacks.BeginAttackPhases();
     }

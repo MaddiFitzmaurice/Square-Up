@@ -5,6 +5,7 @@ using UnityEngine;
 public class BossHealthManager : MonoBehaviour
 {
     public GameObject shield;
+    public BoxCollider weakHitbox;
 
     private Boss boss;
     private SphereCollider shieldCollider;
@@ -14,6 +15,8 @@ public class BossHealthManager : MonoBehaviour
         boss = GetComponent<Boss>();
         shieldCollider = GetComponent<SphereCollider>();
         boss.bossData.shieldHealth = boss.bossData.shieldHealthMax;
+        boss.bossData.health = boss.bossData.healthMax;
+        weakHitbox.enabled = false;
     }
 
     // Handling attacks from the player
@@ -32,6 +35,16 @@ public class BossHealthManager : MonoBehaviour
                     shield.SetActive(false);
                     shieldCollider.enabled = false;
                 }
+            }
+        }
+
+        // ****** NEED TO FIX BC HITBOX SEPARATE TO BOSS
+        // Attacked during Weak State
+        if (other.CompareTag("Player"))
+        {
+            if (weakHitbox.enabled)
+            {
+                boss.bossData.health -= 1;
             }
         }
     }

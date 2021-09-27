@@ -14,6 +14,8 @@ public class PlayerAttack : MonoBehaviour
     private Player player;
     private List<GameObject> projectiles;
 
+    private Vector3 launchDir;
+
     private void Start()
     {
         player = GetComponent<Player>();
@@ -64,8 +66,20 @@ public class PlayerAttack : MonoBehaviour
     // When on a launchpad in AttackState, launch
     public void Launch()
     {
-        Vector3 launchDir = player.playerMovement.GetPlayerFireDirection();
+        launchDir = player.playerMovement.GetPlayerFireDirection();
         player.playerRb.AddForce(launchDir * player.playerData.launchSpeed, ForceMode.Impulse);
+    }
+
+    public void BigAttack()
+    {
+        StartCoroutine(BigAttackCoroutine());
+    }
+
+    IEnumerator BigAttackCoroutine()
+    {
+        yield return new WaitForSeconds(2);
+        // Launch player in opposite direction
+        player.playerRb.AddForce(-launchDir * player.playerData.launchSpeed, ForceMode.Impulse);
     }
 
     // When Player enters a launch trigger, flag it
@@ -74,6 +88,11 @@ public class PlayerAttack : MonoBehaviour
         if (other.CompareTag("LaunchTrigger"))
         {
             readyToLaunch = true;
+        }
+
+        if (other.CompareTag("BossWeakHitbox"))
+        {
+            BigAttack();
         }
     }
 

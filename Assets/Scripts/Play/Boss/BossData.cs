@@ -7,6 +7,7 @@ public class BossData : MonoBehaviour
     #region Boss Health Data
     [Header("Health Data")]
     public int health;
+    public int healthMax;
     public int shieldHealthMax;
     public int shieldHealth;
     #endregion

@@ -10,6 +10,7 @@ TagManager:
   - Launchpad
   - Wall
   - LaunchTrigger
+  - BossWeakHitbox
   layers:
   - Default
   - TransparentFX

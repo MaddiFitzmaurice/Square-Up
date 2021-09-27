@@ -14,6 +14,7 @@ public class BossWeakState : BaseState
     public override void Enter()
     {
         boss.bossMovement.ResetRotation();
+        boss.bossHealthManager.weakHitbox.enabled = true;
     }
 
     public override void LogicUpdate()
@@ -23,7 +24,13 @@ public class BossWeakState : BaseState
 
     public override void PhysicsUpdate()
     {
-      
+
+    }
+
+    public override void Exit()
+    {
+        boss.bossHealthManager.weakHitbox.enabled = false;
+        boss.bossHealthManager.ResetShields();
     }
 
 }
