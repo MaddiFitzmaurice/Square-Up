@@ -27,7 +27,7 @@ public class GMStartState : BaseState
         if (Input.GetKeyDown(KeyCode.Space))
         {
             // ********Change back to Evade State
-            GameManager.instance.gmStateMachine.ChangeState(GameManager.instance.gmEvadeState);
+            GameManager.instance.gmStateMachine.ChangeState(GameManager.instance.gmSpongeState);
         }
 
         player.stateMachine.currentState.LogicUpdate();

@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
     public void GravEnter()
     {
         // Simulate gravity kicking back in
-        player.playerRb.AddForce(-Vector3.forward * 9.81f, ForceMode.Impulse);
+        player.playerRb.AddForce(-Vector3.forward * 9.81f * 1.5f, ForceMode.Impulse);
     }
 
     // Wall checks

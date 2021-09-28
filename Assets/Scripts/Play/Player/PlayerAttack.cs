@@ -87,16 +87,21 @@ public class PlayerAttack : MonoBehaviour
         // Launch player in opposite direction
         player.playerRb.AddForce(-launchDir * player.playerData.launchSpeed, ForceMode.Impulse);
         yield return new WaitForSeconds(2);
-        // Signal gamestate change
+        // Signal to GameManager to initiate state change out of AttackState
         hasDoneBigAttack = true;
     }
 
     // When Player enters a launch trigger, flag it
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("LaunchTrigger"))
+        if (other.CompareTag("LaunchpadTrigger"))
         {
-            readyToLaunch = true;
+            // Check if in AttackState and not GravState,
+            // Flag that player is ready to launch over to Boss to do Big Attack
+            if (player.stateMachine.currentState == player.playerAttackState)
+            {
+                readyToLaunch = true;
+            }
         }
 
         if (other.CompareTag("BossWeakHitbox"))
@@ -108,9 +113,12 @@ public class PlayerAttack : MonoBehaviour
     // When Player exits a launch trigger, unflag it
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("LaunchTrigger"))
+        if (other.CompareTag("LaunchpadTrigger"))
         {
-            readyToLaunch = false;
+            if (player.stateMachine.currentState == player.playerAttackState)
+            {
+                readyToLaunch = false;
+            }
         }
     }
     #endregion

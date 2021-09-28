@@ -11,7 +11,7 @@ public class PlayerHealthManager : MonoBehaviour
         player = GetComponent<Player>();
     }
 
-    // Interacting with Boss Projectile Attacks
+    // Interacting with objects that could damage/trigger a game over
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("BossSingleFire"))
@@ -36,6 +36,17 @@ public class PlayerHealthManager : MonoBehaviour
         {
             player.playerData.health -= other.GetComponent<TrackerProjectile>().damage;
             other.gameObject.SetActive(false);
+        }
+
+        if (other.CompareTag("LaunchpadTrigger"))
+        {
+            // Check if in GravState not AttackState
+            // Rising launchpads trigger a game over if caught on one
+            if (player.stateMachine.currentState == player.playerGravState)
+            {
+                // Game over logic here
+                Debug.Log("You died.");
+            }
         }
     }
 

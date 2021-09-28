@@ -24,6 +24,7 @@ public class LaunchpadMovement : MonoBehaviour
     // Launchpad comes out of wall to act as barrier for player
     public void BarrierLaunchpad()
     {
+        launchTrigger.enabled = true;
         StopAllCoroutines();
         StartCoroutine(Move(target));
     }
@@ -45,10 +46,13 @@ public class LaunchpadMovement : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
+        launchTrigger.enabled = false;
+
         if (transform.position == target.position)
         {
             raised = true;
         }
+
         else if (transform.position == returnTarget.position)
         {
             raised = false;

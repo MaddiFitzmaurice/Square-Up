@@ -267,7 +267,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2a4a6199278094247a69e43707646d20, type: 2}
+  - {fileID: 2100000, guid: 7f90f7c34d9e2e74393be0aba1b31b9a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -540,7 +540,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2a4a6199278094247a69e43707646d20, type: 2}
+  - {fileID: 2100000, guid: 7f90f7c34d9e2e74393be0aba1b31b9a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -596,7 +596,7 @@ GameObject:
   - component: {fileID: 151418271}
   m_Layer: 0
   m_Name: Ceiling Trigger
-  m_TagString: LaunchTrigger
+  m_TagString: LaunchpadTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -610,7 +610,7 @@ Transform:
   m_GameObject: {fileID: 151418269}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 11.8}
-  m_LocalScale: {x: 4, y: 1, z: 1}
+  m_LocalScale: {x: 3.9, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 531145768}
   m_RootOrder: 1
@@ -830,7 +830,7 @@ GameObject:
   - component: {fileID: 215070916}
   m_Layer: 0
   m_Name: Floor Trigger
-  m_TagString: LaunchTrigger
+  m_TagString: LaunchpadTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -844,7 +844,7 @@ Transform:
   m_GameObject: {fileID: 215070914}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -11.8}
-  m_LocalScale: {x: 4, y: 1, z: 1}
+  m_LocalScale: {x: 3.9, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 531145768}
   m_RootOrder: 0
@@ -1296,7 +1296,7 @@ MonoBehaviour:
   singleFireDamage: 1
   singleFireSpeed: 20
   singleFireDestroyAfter: 2
-  singleFireStartTime: 2
+  singleFireStartTime: 3
   singleFireRate: 1
   areaFireProjectiles: 50
   numOfDirections: 10
@@ -1680,9 +1680,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   phaseOneTime: 15
   phaseTwoTime: 15
-  phaseThreeTime: 15
+  phaseThreeTime: 17
   launchpadCountdown: 10
-  spongeStateFailedTime: 15
+  spongeStateFailedTime: 30
   attackStateFailedTime: 15
 --- !u!1 &646277228
 GameObject:
@@ -2380,7 +2380,7 @@ GameObject:
   - component: {fileID: 1548671601}
   m_Layer: 0
   m_Name: Right Trigger
-  m_TagString: LaunchTrigger
+  m_TagString: LaunchpadTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2394,7 +2394,7 @@ Transform:
   m_GameObject: {fileID: 1548671599}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 11.8, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 3.9}
   m_Children: []
   m_Father: {fileID: 531145768}
   m_RootOrder: 3
@@ -2892,7 +2892,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2a4a6199278094247a69e43707646d20, type: 2}
+  - {fileID: 2100000, guid: 7f90f7c34d9e2e74393be0aba1b31b9a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3160,7 +3160,7 @@ GameObject:
   - component: {fileID: 1968149033}
   m_Layer: 0
   m_Name: Left Trigger
-  m_TagString: LaunchTrigger
+  m_TagString: LaunchpadTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3174,7 +3174,7 @@ Transform:
   m_GameObject: {fileID: 1968149031}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -11.8, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 3.9}
   m_Children: []
   m_Father: {fileID: 531145768}
   m_RootOrder: 2
@@ -3256,7 +3256,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2a4a6199278094247a69e43707646d20, type: 2}
+  - {fileID: 2100000, guid: 7f90f7c34d9e2e74393be0aba1b31b9a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

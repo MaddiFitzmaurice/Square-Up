@@ -9,12 +9,12 @@ TagManager:
   - PlayerProjectile
   - Launchpad
   - Wall
-  - LaunchTrigger
   - BossWeakHitbox
   - BossMine
   - BossAreaFire
   - BossTrackerFire
   - BossShield
+  - LaunchpadTrigger
   layers:
   - Default
   - TransparentFX
