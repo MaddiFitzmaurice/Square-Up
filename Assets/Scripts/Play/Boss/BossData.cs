@@ -12,28 +12,36 @@ public class BossData : MonoBehaviour
     public int shieldHealth;
     #endregion
 
-    #region Sponge State Data
-    [Header("Basic Projectile Data")]
-    public int basicProjectiles;
-
-    public float bpStartTime;
-    public float bpFireRate;
-    public float bpDestroyAfter;
-    public float bpSpeed;
+    #region Single Fire Data
+    [Header("Single Fire Data")]
+    public int singleFireProjectiles;
+    public int singleFireDamage;
+    public float singleFireSpeed;
+    public float singleFireDestroyAfter;
+    public float singleFireStartTime;
+    public float singleFireRate;
     #endregion
 
-    #region No Grav State Data
+    #region Area Fire Data
     [Header("Area Fire Data")]
+    public int areaFireProjectiles;
+    public int numOfDirections;
+    public int areaFireDamage;
+    public float areaFireSpeed;
     public float areaFireRate;
+    public float areaFireDestroyAfter;
+    public float areaFireStartTime;
     public float angularVelocity;
 
     [Header("Mine Field Data")]
+    public int mineDamage;
     public float mineSpeed;
     public float mineDestroyAfter;
     public float mineStartTime;
     public List<Transform> mineLocations;
 
     [Header("Tracking Fire Data")]
+    public int trackerDamage;
     public float trackerSpeed;
     public float trackerDestroyAfter;
     public float trackerStartTime;

@@ -8,38 +8,40 @@ public class BossAttacks : MonoBehaviour
     public bool chainComplete;
     public bool isSpinning;
 
-    // Single and Area Fire Prefab and Parent Transform Grouper
-    public GameObject basicProjectile;
-    public Transform basicProjectileGrouping;
+    // Single Fire Prefab and Parent Transform Grouper
+    public GameObject singleFirePrefab;
+    public Transform singleFireGrouping;
+
+    // Area Fire Prefab and Parent Transform Grouper
+    public GameObject areaFirePrefab;
+    public Transform areaFireGrouping;
 
     // MineField Prefab and Parent Transform Grouper
-    public GameObject mine;
+    public GameObject minePrefab;
     public Transform mineGrouping;
 
     // Tracking Fire Prefab
     public TrackerProjectile trackerProjPrefab;
 
-    // String name for types of attacks
+    // Strings to access types of attack methods in Invoke()
     public string singleFire = "SingleFire";
     public string areaFire = "AreaFire";
     public string mineField = "MineField";
     public string trackingFire = "TrackingFire";
 
-    private int projectilesToPool;
-    private int minesToPool;
-
     private Boss boss;
 
     // Single Fire projectiles available
-    private List<GameObject> projectiles;
+    private List<GameObject> singleFireProjectiles;
+
+    // Area Fire Projectiles available from pool
+    private List<GameObject> areaFireProjectiles;
+    private List<GameObject> areaFireProjPool;
 
     // Mines available
     private List<GameObject> mines;
 
-    // Area Fire projectiles available
-    private List<GameObject> areaProjectiles;
-
-    // Tracking Projectile
+    // Tracking Fire projectile
     private TrackerProjectile trackerProjectile;
 
     private void Start()
@@ -47,15 +49,15 @@ public class BossAttacks : MonoBehaviour
         boss = GetComponent<Boss>();
 
         // Attack setups
-        ProjectilePoolingSetup();
-        MineFieldPoolingSetup();
+        SingleFireSetup();
+        AreaFireSetup();
+        MineFieldSetup();
         TrackingFireSetup();
-        areaProjectiles = new List<GameObject>();
 
         chainComplete = false;
         isSpinning = false;
     }
-    #region Chain Attacks
+    #region Chaining Attacks Together
     // Chain Boss's attack phases with timers
     public void BeginAttackPhases()
     {
@@ -67,12 +69,15 @@ public class BossAttacks : MonoBehaviour
     // Coroutine chain for Boss's attacks
     IEnumerator AttackPhases()
     {
+        // Single Fire
         StartCoroutine(PhaseOne());
         yield return new WaitForSeconds(GameManager.instance.gameData.phaseOneTime);
+        // Area Fire
         StartCoroutine(PhaseTwo());
         isSpinning = true;
         yield return new WaitForSeconds(GameManager.instance.gameData.phaseTwoTime);
         isSpinning = false;
+        // Mine Field + Tracking Fire
         StartCoroutine(PhaseThree());
         yield return new WaitForSeconds(GameManager.instance.gameData.phaseThreeTime);
         StopAttack();
@@ -84,7 +89,7 @@ public class BossAttacks : MonoBehaviour
     IEnumerator PhaseOne()
     {
         StopAttack();
-        StartAttack(boss.bossAttacks.singleFire, boss.bossData.bpStartTime, boss.bossData.bpFireRate);
+        StartRepeatingAttack(boss.bossAttacks.singleFire, boss.bossData.singleFireStartTime, boss.bossData.singleFireRate);
         yield break;
     }
 
@@ -92,7 +97,7 @@ public class BossAttacks : MonoBehaviour
     IEnumerator PhaseTwo()
     {
         boss.bossAttacks.StopAttack();
-        boss.bossAttacks.StartAttack(boss.bossAttacks.areaFire, boss.bossData.bpStartTime, boss.bossData.areaFireRate);
+        boss.bossAttacks.StartRepeatingAttack(boss.bossAttacks.areaFire, boss.bossData.areaFireStartTime, boss.bossData.areaFireRate);
         yield break;
     }
 
@@ -106,13 +111,15 @@ public class BossAttacks : MonoBehaviour
 
     #endregion
 
-    // Start Boss's specified repeating attack (Single Fire, Area Fire)
-    public void StartAttack(string _methodName, float _startTime, float _repeatRate)
+    #region Start/Stop Attacks
+
+    // Start one of Boss's repeating attacks (Single Fire or Area Fire)
+    public void StartRepeatingAttack(string _methodName, float _startTime, float _repeatRate)
     {
         InvokeRepeating(_methodName, _startTime, _repeatRate);
     }
 
-    // Start Boss's singular attack (Mine Field, Tracking) 
+    // Start one of Boss's singular attacks (Mine Field or Tracking) 
     public void StartSingleAttack(string _methodName, float _startTime)
     {
         Invoke(_methodName, _startTime);
@@ -123,12 +130,28 @@ public class BossAttacks : MonoBehaviour
     {
         CancelInvoke();
     }
+    #endregion
 
     #region Single Fire
 
+    // Set up for attacks that use basic projectiles (Single Fire & Area Fire)
+    private void SingleFireSetup()
+    {
+        // Basic projectile data setup
+        BasicProjectile basicProjData = singleFirePrefab.GetComponent<BasicProjectile>();
+        basicProjData.speed = boss.bossData.singleFireSpeed;
+        basicProjData.destroyAfter = boss.bossData.singleFireDestroyAfter;
+        basicProjData.damage = boss.bossData.singleFireDamage;
+
+        // Object pooling setup
+        singleFireProjectiles = new List<GameObject>();
+        int projectilesToPool = boss.bossData.singleFireProjectiles;
+        singleFireProjectiles = ObjectPooler.CreateObjectPool(projectilesToPool, singleFirePrefab);
+        singleFireProjectiles = ObjectPooler.AssignParentGrouping(singleFireProjectiles, singleFireGrouping);
+    }
     public void SingleFire()
     {
-        GameObject projectile = ObjectPooler.GetPooledObject(projectiles);
+        GameObject projectile = ObjectPooler.GetPooledObject(singleFireProjectiles);
 
         // If boss has projectiles available to fire
         if (projectile != null)
@@ -139,53 +162,54 @@ public class BossAttacks : MonoBehaviour
             projectile.SetActive(true);
         }
     }
-
-    // Set up for attacks that use basic projectiles (Single Fire & Area Fire)
-    private void ProjectilePoolingSetup()
-    {
-        // Basic projectile data setup
-        BasicProjectile basicProjData = basicProjectile.GetComponent<BasicProjectile>();
-        basicProjData.speed = boss.bossData.bpSpeed;
-        basicProjData.destroyAfter = boss.bossData.bpDestroyAfter;
-
-        // Object pooling setup
-        projectiles = new List<GameObject>();
-        projectilesToPool = boss.bossData.basicProjectiles;
-        projectiles = ObjectPooler.CreateObjectPool(projectilesToPool, basicProjectile);
-        projectiles = ObjectPooler.AssignParentGrouping(projectiles, basicProjectileGrouping);
-    }
-
     #endregion
 
     #region Area Fire
+    private void AreaFireSetup()
+    {
+        // Area Fire projectile data setup
+        BasicProjectile areaFireData = areaFirePrefab.GetComponent<BasicProjectile>();
+        areaFireData.speed = boss.bossData.areaFireSpeed;
+        areaFireData.destroyAfter = boss.bossData.areaFireDestroyAfter;
+        areaFireData.damage = boss.bossData.areaFireDamage;
 
-    // Shoot 8 projectiles in 8 directions
+        // Object pooling setup
+        areaFireProjPool = new List<GameObject>();
+        int projectilesToPool = boss.bossData.areaFireProjectiles;
+        areaFireProjPool = ObjectPooler.CreateObjectPool(projectilesToPool, areaFirePrefab);
+        areaFireProjPool = ObjectPooler.AssignParentGrouping(areaFireProjPool, areaFireGrouping);
+
+        // Set up list of x amount of projectiles to fire in x amount of directions
+        areaFireProjectiles = new List<GameObject>();
+    }
+
+    // Shoot x projectiles in x directions
     public void AreaFire()
     {
-        areaProjectiles.Clear();
+        areaFireProjectiles.Clear();
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < boss.bossData.numOfDirections; i++)
         {
-            GameObject areaProjectile = ObjectPooler.GetPooledObject(projectiles);
+            GameObject areaProjectile = ObjectPooler.GetPooledObject(areaFireProjPool);
 
             // Keep looking until projectile is not null
             while (areaProjectile == null)
             {
-                areaProjectile = ObjectPooler.GetPooledObject(projectiles);
+                areaProjectile = ObjectPooler.GetPooledObject(areaFireProjPool);
             }
 
             // Activate it so it is not picked up again on next iteration
             areaProjectile.gameObject.SetActive(true);
-            areaProjectiles.Add(areaProjectile);
+            areaFireProjectiles.Add(areaProjectile);
         }
 
         float angle = 0;
 
         // Shoot each projectile in a distinct direction
-        foreach (var proj in areaProjectiles)
+        foreach (var proj in areaFireProjectiles)
         {
             proj.SetActive(false);
-            angle += 45;
+            angle += 360 / boss.bossData.numOfDirections;
             proj.transform.position = transform.position;
             proj.transform.rotation = transform.rotation * Quaternion.Euler(0, angle, 0);
             proj.GetComponent<BasicProjectile>().dir = Vector3.forward;
@@ -196,17 +220,18 @@ public class BossAttacks : MonoBehaviour
     #endregion
 
     #region MineField
-    private void MineFieldPoolingSetup()
+    private void MineFieldSetup()
     {
         // Basic mine data setup
-        Mine mineData = mine.GetComponent<Mine>();
+        Mine mineData = minePrefab.GetComponent<Mine>();
         mineData.speed = boss.bossData.mineSpeed;
         mineData.destroyAfter = boss.bossData.mineDestroyAfter;
+        mineData.damage = boss.bossData.mineDamage;
 
         // Object pooling setup
         mines = new List<GameObject>();
-        minesToPool = boss.bossData.mineLocations.Count;
-        mines = ObjectPooler.CreateObjectPool(minesToPool, mine);
+        int minesToPool = boss.bossData.mineLocations.Count;
+        mines = ObjectPooler.CreateObjectPool(minesToPool, minePrefab);
         mines = ObjectPooler.AssignParentGrouping(mines, mineGrouping);
 
         // Set final locations for each pooled mine
@@ -218,14 +243,14 @@ public class BossAttacks : MonoBehaviour
 
     public void MineField()
     {
-        for (int i = 0; i < minesToPool; i++)
+        for (int i = 0; i < boss.bossData.mineLocations.Count; i++)
         {
             GameObject pooledMine = ObjectPooler.GetPooledObject(mines);
 
             // Keep looking until projectile is not null
             while (pooledMine == null)
             {
-                pooledMine = ObjectPooler.GetPooledObject(projectiles);
+                pooledMine = ObjectPooler.GetPooledObject(mines);
             }
 
             // Activate it so it is not picked up again on next for() iteration
@@ -245,6 +270,7 @@ public class BossAttacks : MonoBehaviour
         trackerProjectile.player = boss.player;
         trackerProjectile.speed = boss.bossData.trackerSpeed;
         trackerProjectile.destroyAfter = boss.bossData.trackerDestroyAfter;
+        trackerProjectile.damage = boss.bossData.trackerDamage;
     }
 
     public void TrackingFire()

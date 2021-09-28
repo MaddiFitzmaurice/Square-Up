@@ -798,7 +798,7 @@ GameObject:
   m_Component:
   - component: {fileID: 207013895}
   m_Layer: 0
-  m_Name: BossBasicProjectiles
+  m_Name: BossSingleFireGrouping
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1261,10 +1261,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chainComplete: 0
   isSpinning: 0
-  basicProjectile: {fileID: 4945062170482623835, guid: 30e8d64a9d9e5cd41975993ea385c05f,
+  singleFirePrefab: {fileID: 4945062170482623835, guid: 30e8d64a9d9e5cd41975993ea385c05f,
     type: 3}
-  basicProjectileGrouping: {fileID: 207013895}
-  mine: {fileID: 4945062170482623835, guid: 0e7a15578f2c06e449cd739b6c8c5485, type: 3}
+  singleFireGrouping: {fileID: 207013895}
+  areaFirePrefab: {fileID: 4945062170482623835, guid: 2ac6ee660d894254b8da89c9ce04d49f,
+    type: 3}
+  areaFireGrouping: {fileID: 1129678259}
+  minePrefab: {fileID: 4945062170482623835, guid: 0e7a15578f2c06e449cd739b6c8c5485,
+    type: 3}
   mineGrouping: {fileID: 767567880}
   trackerProjPrefab: {fileID: 114833560980297214, guid: ecc73ebf0fd68d94cb74f6f9ca333e83,
     type: 3}
@@ -1288,13 +1292,21 @@ MonoBehaviour:
   healthMax: 3
   shieldHealthMax: 15
   shieldHealth: 0
-  basicProjectiles: 24
-  bpStartTime: 2
-  bpFireRate: 0.5
-  bpDestroyAfter: 1
-  bpSpeed: 20
+  singleFireProjectiles: 15
+  singleFireDamage: 1
+  singleFireSpeed: 20
+  singleFireDestroyAfter: 2
+  singleFireStartTime: 2
+  singleFireRate: 1
+  areaFireProjectiles: 50
+  numOfDirections: 10
+  areaFireDamage: 1
+  areaFireSpeed: 20
   areaFireRate: 2
+  areaFireDestroyAfter: 1
+  areaFireStartTime: 2
   angularVelocity: 100
+  mineDamage: 2
   mineSpeed: 10
   mineDestroyAfter: 15
   mineStartTime: 1
@@ -1307,6 +1319,7 @@ MonoBehaviour:
   - {fileID: 449682342}
   - {fileID: 1317248602}
   - {fileID: 1771782005}
+  trackerDamage: 3
   trackerSpeed: 5
   trackerDestroyAfter: 15
   trackerStartTime: 2
@@ -1890,7 +1903,7 @@ Transform:
   m_Children:
   - {fileID: 1871279638}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &777928863
 GameObject:
@@ -2042,6 +2055,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 301596324}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1129678258
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1129678259}
+  m_Layer: 0
+  m_Name: BossAreaFireGrouping
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1129678259
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129678258}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1310310033
 GameObject:
@@ -2312,6 +2355,7 @@ MonoBehaviour:
     type: 3}
   projectileGrouping: {fileID: 1732049656}
   readyToLaunch: 0
+  hasDoneBigAttack: 0
 --- !u!114 &1336132488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2381,7 +2425,7 @@ GameObject:
   - component: {fileID: 1593584145}
   m_Layer: 0
   m_Name: BossShield
-  m_TagString: Untagged
+  m_TagString: BossShield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

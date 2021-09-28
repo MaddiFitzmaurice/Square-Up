@@ -14,7 +14,8 @@ public class BossSpongeState : BaseState
     public override void Enter()
     {
         boss.bossHealthManager.ResetShields();
-        boss.bossAttacks.StartAttack(boss.bossAttacks.singleFire, boss.bossData.bpStartTime, boss.bossData.bpFireRate);
+        // Begin Single Fire
+        boss.bossAttacks.StartRepeatingAttack(boss.bossAttacks.singleFire, boss.bossData.singleFireStartTime, boss.bossData.singleFireRate);
     }
 
     public override void LogicUpdate()

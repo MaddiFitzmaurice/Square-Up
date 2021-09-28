@@ -36,12 +36,14 @@ public class BossMovement : MonoBehaviour
     // Coroutine to reset Boss rotation
     IEnumerator ResettingRotation()
     {
-        while (Quaternion.Angle(boss.bossRb.rotation, Quaternion.identity) > 0.5f)
+        while (Quaternion.Angle(boss.bossRb.rotation, Quaternion.identity) > 1)
         {
             Quaternion deltaRotation = Quaternion.Euler(vectorSpeed * Time.fixedDeltaTime);
             boss.bossRb.MoveRotation(boss.bossRb.rotation * deltaRotation);
             yield return null;
         }
+
+        boss.bossRb.rotation = Quaternion.identity;
     }
 
     

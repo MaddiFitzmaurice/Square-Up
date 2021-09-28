@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TrackerProjectile : MonoBehaviour
 {
+    public int damage;
     public float speed;
     public float destroyAfter;
     public Player player;
@@ -16,10 +17,8 @@ public class TrackerProjectile : MonoBehaviour
     private void Update()
     {
         // Find direction player is in and pursue them
-        //Vector3 dir = (player.transform.position - transform.position).normalized;
         transform.LookAt(player.transform);
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
-        
     }
 
     private void OnDisable()

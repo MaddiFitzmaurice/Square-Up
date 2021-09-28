@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BasicProjectile : MonoBehaviour
 {
+    public int damage;
     public float speed;
     public float destroyAfter;
     public Vector3 dir;

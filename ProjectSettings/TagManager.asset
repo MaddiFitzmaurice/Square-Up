@@ -11,6 +11,10 @@ TagManager:
   - Wall
   - LaunchTrigger
   - BossWeakHitbox
+  - BossMine
+  - BossAreaFire
+  - BossTrackerFire
+  - BossShield
   layers:
   - Default
   - TransparentFX

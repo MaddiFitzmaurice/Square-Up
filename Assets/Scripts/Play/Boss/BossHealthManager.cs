@@ -38,7 +38,6 @@ public class BossHealthManager : MonoBehaviour
             }
         }
 
-        // ****** NEED TO FIX BC HITBOX SEPARATE TO BOSS
         // Attacked during Weak State
         if (other.CompareTag("Player"))
         {

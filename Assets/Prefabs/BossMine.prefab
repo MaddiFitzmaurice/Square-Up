@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 114249060465721420}
   m_Layer: 0
   m_Name: BossMine
-  m_TagString: BossSingleFire
+  m_TagString: BossMine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,6 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f51ecd5a509a2de4f801da19a1dc286f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  destroyAfter: 0
-  position: {fileID: 0}
+  damage: 2
+  speed: 10
+  destroyAfter: 15
+  finalPosition: {fileID: 0}

@@ -36,6 +36,8 @@ public class PlayerAttack : MonoBehaviour
         hasDoneBigAttack = false;
     }
 
+    #region SpongeState Attack
+    // Fire single projectile in opposite direction to current surface
     public void FireProjectile()
     {
         Vector3 fireDir = player.playerMovement.GetPlayerFireDirection();
@@ -64,7 +66,9 @@ public class PlayerAttack : MonoBehaviour
             projectile.SetActive(true);
         }
     }
+    #endregion
 
+    #region AttackState Attack
     // When on a launchpad in AttackState, launch
     public void Launch()
     {
@@ -82,7 +86,8 @@ public class PlayerAttack : MonoBehaviour
         yield return new WaitForSeconds(2);
         // Launch player in opposite direction
         player.playerRb.AddForce(-launchDir * player.playerData.launchSpeed, ForceMode.Impulse);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
+        // Signal gamestate change
         hasDoneBigAttack = true;
     }
 
@@ -108,4 +113,5 @@ public class PlayerAttack : MonoBehaviour
             readyToLaunch = false;
         }
     }
+    #endregion
 }

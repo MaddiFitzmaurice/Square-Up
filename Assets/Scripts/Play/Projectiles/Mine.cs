@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Mine : MonoBehaviour
 {
+    public int damage;
     public float speed;
     public float destroyAfter;
     public Transform finalPosition;
