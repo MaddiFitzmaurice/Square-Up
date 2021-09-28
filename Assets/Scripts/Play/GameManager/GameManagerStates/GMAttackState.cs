@@ -29,6 +29,7 @@ public class GMAttackState : BaseState
 
     public override void LogicUpdate()
     {
+        // Player launching to attack Boss
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (player.playerAttack.readyToLaunch)
@@ -36,6 +37,11 @@ public class GMAttackState : BaseState
                 enviroManager.launchpadManager.Launch();
                 player.playerAttack.Launch();
             }
+        }
+
+        if (player.playerAttack.hasDoneBigAttack)
+        {
+            GameManager.instance.gmStateMachine.ChangeState(GameManager.instance.gmEvadeState);
         }
 
         // If failed to attack Boss in time, change back to Evade State
@@ -56,5 +62,10 @@ public class GMAttackState : BaseState
         player.stateMachine.currentState.PhysicsUpdate();
         boss.stateMachine.currentState.PhysicsUpdate();
         enviroManager.stateMachine.currentState.PhysicsUpdate();
+    }
+
+    public override void Exit()
+    {
+        
     }
 }

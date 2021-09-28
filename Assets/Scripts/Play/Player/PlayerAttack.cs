@@ -8,6 +8,7 @@ public class PlayerAttack : MonoBehaviour
     public Transform projectileGrouping;
 
     public bool readyToLaunch;
+    public bool hasDoneBigAttack;
 
     private int projectilesToPool;
 
@@ -32,6 +33,7 @@ public class PlayerAttack : MonoBehaviour
         projectiles = ObjectPooler.AssignParentGrouping(projectiles, projectileGrouping);
 
         readyToLaunch = false;
+        hasDoneBigAttack = false;
     }
 
     public void FireProjectile()
@@ -80,6 +82,8 @@ public class PlayerAttack : MonoBehaviour
         yield return new WaitForSeconds(2);
         // Launch player in opposite direction
         player.playerRb.AddForce(-launchDir * player.playerData.launchSpeed, ForceMode.Impulse);
+        yield return new WaitForSeconds(1);
+        hasDoneBigAttack = true;
     }
 
     // When Player enters a launch trigger, flag it

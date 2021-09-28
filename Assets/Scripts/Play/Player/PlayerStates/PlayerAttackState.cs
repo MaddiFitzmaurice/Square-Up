@@ -26,4 +26,8 @@ public class PlayerAttackState : BaseState
         player.playerMovement.GravMove();
     }
 
+    public override void Exit()
+    {
+        player.playerAttack.hasDoneBigAttack = false;
+    }
 }
