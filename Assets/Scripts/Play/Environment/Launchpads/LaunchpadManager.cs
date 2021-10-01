@@ -5,6 +5,7 @@ using UnityEngine;
 public class LaunchpadManager : MonoBehaviour
 {
     public List<LaunchpadMovement> launchpads;
+    public List<LaunchpadMovement> launchpadsBG;
 
     private int numOfBarriers;
 
@@ -22,13 +23,24 @@ public class LaunchpadManager : MonoBehaviour
 
     #region AttackState Functions
 
-    public void InitiateLaunch()
+    public void ActivateLaunchSequence()
     {
+        StartCoroutine(LaunchSequence());
+    }
+
+    IEnumerator LaunchSequence()
+    {
+        // Clear previously chosen launchpad and pick new one
+        StartCoroutine(LowerBarriers(launchpadsBG));
+        yield return new WaitForSeconds(1);
+        StartCoroutine(LowerBarriers(launchpads));
+        yield return new WaitForSeconds(2);
         launchpadSelection.Clear();
         launchpadSelection = GenerateRandom(1);
-        // Activate launch trigger box
+        // Raise background barrier to indicate which launchpad is active
+        launchpadsBG[launchpadSelection[0]].BarrierLaunchpad();
         launchpads[launchpadSelection[0]].launchTrigger.enabled = true;
-        Debug.Log(launchpadSelection[0]);
+        yield break;
     }
 
     public void Launch()
@@ -38,9 +50,9 @@ public class LaunchpadManager : MonoBehaviour
     #endregion
 
     #region SpongeState Functions
-    // Accessed by Sponge State
+    // Accessed by Sponge State to start barrier sequence
     // Number of barriers to raise increases with each cycle
-    public void ActivateBarrierLaunchpads(int _numOfBarriers)
+    public void ActivateBarrierSequence(int _numOfBarriers)
     {
         numOfBarriers = _numOfBarriers;
         StartCoroutine(BarrierSequence());
@@ -49,20 +61,30 @@ public class LaunchpadManager : MonoBehaviour
     // Chain together functions to operate sequentially
     IEnumerator BarrierSequence()
     {
-        StartCoroutine(LowerBarriers());
-        StartCoroutine(RaiseBarriers());
+        // Clear previously chosen barriers and pick x new ones to raise
+        barriersToRaise.Clear();
+        barriersToRaise = GenerateRandom(numOfBarriers);
+        // Lower background barriers, then foreground barriers
+        StartCoroutine(LowerBarriers(launchpadsBG));
+        yield return new WaitForSeconds(2);
+        StartCoroutine(LowerBarriers(launchpads));
+        yield return new WaitForSeconds(1);
+        // Raise background barriers, then foreground barriers
+        StartCoroutine(RaiseBarriers(launchpadsBG));
+        yield return new WaitForSeconds(2);
+        StartCoroutine(RaiseBarriers(launchpads));
         yield break;
     }
 
     // Lower barriers and return when all have retracted completely
-    IEnumerator LowerBarriers()
+    IEnumerator LowerBarriers(List<LaunchpadMovement> _barriers)
     {
-        foreach (var item in launchpads)
+        foreach (var item in _barriers)
         {
             item.RetractLaunchpad();
         }
 
-        while (!CheckIfRetractedAll())
+        while (!CheckIfRetractedAll(_barriers))
         {
             yield return null;
         }
@@ -70,31 +92,30 @@ public class LaunchpadManager : MonoBehaviour
         yield break;
     }
 
-    // Raise Launchpads as barriers to the player's movement
-    IEnumerator RaiseBarriers()
+    // Raise foreground launchpads as barriers to the player's movement or
+    // raise identical background barriers to indicate to player
+    // which foreground ones will rise next
+    IEnumerator RaiseBarriers(List<LaunchpadMovement> _barriers)
     {
-        RaiseBarrierLaunchpads(numOfBarriers);
+        foreach (int index in barriersToRaise)
+        {
+            _barriers[index].BarrierLaunchpad();
+        }
+
         yield break;
     }
 
-    // Select random launchpads and raise them to act as barriers
-    public void RaiseBarrierLaunchpads(int _amountToRaise)
-    {
-        barriersToRaise.Clear();
-        barriersToRaise = GenerateRandom(_amountToRaise);
-
-        foreach (int index in barriersToRaise)
-        {
-            launchpads[index].BarrierLaunchpad();
-        }
-    }  
-
     // Launchpads all retract back into the walls
-    // when exiting Sponge State
+    // Accessed when exiting Sponge State
     public void RetractAllLaunchpads()
     {
         StopAllCoroutines();
         foreach (var item in launchpads)
+        {
+            item.RetractLaunchpad();
+        }
+
+        foreach (var item in launchpadsBG)
         {
             item.RetractLaunchpad();
         }
@@ -129,9 +150,9 @@ public class LaunchpadManager : MonoBehaviour
     }
 
     // Check if all barriers are retracted into the wall
-    private bool CheckIfRetractedAll()
+    private bool CheckIfRetractedAll(List<LaunchpadMovement> _barriers)
     {
-        foreach (var item in launchpads)
+        foreach (var item in _barriers)
         {
             if (item.raised)
             {

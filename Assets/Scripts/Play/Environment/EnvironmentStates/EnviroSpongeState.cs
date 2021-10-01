@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class EnviroSpongeState : BaseState
 {
-    private EnvironmentManager enviro;
-    private LaunchpadDir launchpadDir;
+    private EnvironmentManager enviroManager;
 
     private float nextBarrierRaise;
 
-    public EnviroSpongeState(EnvironmentManager _enviro)
+    public EnviroSpongeState(EnvironmentManager _enviroManager)
     {
-        enviro = _enviro;
+        enviroManager = _enviroManager;
     }
 
     public override void Enter()
     {
+        // Reset timer
         nextBarrierRaise = 0;
     }
 
@@ -24,14 +24,13 @@ public class EnviroSpongeState : BaseState
         // Time between next barrier raises
         if (Time.time > nextBarrierRaise)
         {
-            nextBarrierRaise = Time.time + enviro.enviroData.barrierRate;
-            // ***** Change number as player goes through each cycle
-            enviro.launchpadManager.ActivateBarrierLaunchpads(2);
+            nextBarrierRaise = Time.time + enviroManager.enviroData.barrierRate;
+            enviroManager.launchpadManager.ActivateBarrierSequence(2);
         }
     }
 
     public override void Exit()
     {
-        enviro.launchpadManager.RetractAllLaunchpads();
+        enviroManager.launchpadManager.RetractAllLaunchpads();
     }
 }

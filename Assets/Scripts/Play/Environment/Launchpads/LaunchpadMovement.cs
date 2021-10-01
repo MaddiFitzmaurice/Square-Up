@@ -8,23 +8,32 @@ public class LaunchpadMovement : MonoBehaviour
     public Transform target;
     public Transform returnTarget;
 
-    // Player Launch Trigger Box
+    // Player Interaction Trigger Box
     public BoxCollider launchTrigger;
 
     // Raised flag
     public bool raised = false;
+    public bool isBG;
 
     private void Start()
     {
-        // Deactivate trigger box at beginning of game
-        launchTrigger.enabled = false;
+        // Deactivate trigger box at beginning of game if foreground launchpad
+        if (!isBG)
+        {
+            launchTrigger.enabled = false;
+        }
     }
 
     #region SpongeState Functions
     // Launchpad comes out of wall to act as barrier for player
     public void BarrierLaunchpad()
     {
-        launchTrigger.enabled = true;
+        // Activate trigger to detect whether player is on top
+        // of foreground launchpad while it rises
+        if (!isBG)
+        {
+            launchTrigger.enabled = true;
+        }
         StopAllCoroutines();
         StartCoroutine(Move(target));
     }
@@ -46,7 +55,10 @@ public class LaunchpadMovement : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
-        launchTrigger.enabled = false;
+        if (!isBG)
+        {
+            launchTrigger.enabled = false;
+        }
 
         if (transform.position == target.position)
         {
@@ -78,7 +90,10 @@ public class LaunchpadMovement : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
-        launchTrigger.enabled = false;
+        if (!isBG)
+        {
+            launchTrigger.enabled = false;
+        }
     }
 
     public void LaunchLaunchpad()

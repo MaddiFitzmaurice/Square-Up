@@ -27,9 +27,4 @@ public class EnvironmentManager : MonoBehaviour
         enviroEvadeState = new EnviroEvadeState(this);
         stateMachine = new StateMachine(enviroSpongeState);
     }
-
-    void Start()
-    {
-        
-    }
 }
