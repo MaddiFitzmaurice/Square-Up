@@ -9,6 +9,8 @@ public class LaunchpadManager : MonoBehaviour
 
     private int numOfBarriers;
 
+    private EnvironmentManager enviroManager;
+
     // Lists used to pick random launchpads and store them
     private List<int> randomNums;
     private List<int> barriersToRaise;
@@ -16,6 +18,7 @@ public class LaunchpadManager : MonoBehaviour
 
     private void Start()
     {
+        enviroManager = GetComponent<EnvironmentManager>();   
         randomNums = new List<int>();
         barriersToRaise = new List<int>();
         launchpadSelection = new List<int>();
@@ -35,6 +38,8 @@ public class LaunchpadManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         StartCoroutine(LowerBarriers(launchpads));
         yield return new WaitForSeconds(2);
+        // Change colour to green to signal to player the launchpads are friendly
+        launchpads[0].GetComponent<MeshRenderer>().sharedMaterial.color = enviroManager.enviroData.launchColour;
         launchpadSelection.Clear();
         launchpadSelection = GenerateRandom(1);
         // Raise background barrier to indicate which launchpad is active
@@ -45,6 +50,7 @@ public class LaunchpadManager : MonoBehaviour
 
     public void Launch()
     {
+        StartCoroutine(LowerBarriers(launchpadsBG));
         launchpads[launchpadSelection[0]].LaunchLaunchpad();
     }
     #endregion

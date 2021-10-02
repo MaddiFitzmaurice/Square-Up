@@ -5,4 +5,6 @@ using UnityEngine;
 public class EnvironmentData : MonoBehaviour
 {
     public float barrierRate;
+
+    public Color launchColour;
 }

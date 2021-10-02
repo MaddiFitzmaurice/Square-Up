@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class EnviroLaunchState : BaseState
 {
-    private EnvironmentManager enviro;
+    private EnvironmentManager enviroManager;
 
-    public EnviroLaunchState(EnvironmentManager _enviro)
+    public EnviroLaunchState(EnvironmentManager _enviroManager)
     {
-        enviro = _enviro;
+        enviroManager = _enviroManager;
     }
 
     public override void Enter()
     {
-        enviro.launchpadManager.ActivateLaunchSequence();
+        // Change colour of background launchpad to signal to player that it is friendly
+        enviroManager.launchpadManager.ActivateLaunchSequence();
+    }
+
+    public override void Exit()
+    {
+        // Change colour of launchpad back to Boss colour
+        enviroManager.launchpadManager.launchpads[0].GetComponent<MeshRenderer>().sharedMaterial.color = Color.red;
     }
 }
