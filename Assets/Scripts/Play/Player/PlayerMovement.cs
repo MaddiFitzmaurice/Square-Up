@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
     #region Grav Movement
     public void GravMove()
     {
+        // ***BUG: Can launch off of corner of walls!!!
         if (canControl)
         {
             if (CeilingCheck() || FloorCheck())
