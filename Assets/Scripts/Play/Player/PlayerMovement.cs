@@ -56,17 +56,21 @@ public class PlayerMovement : MonoBehaviour
     #region Grav Movement
     public void GravMove()
     {
-        // ***BUG: Can launch off of corner of walls!!!
         if (canControl)
         {
-            if (CeilingCheck() || FloorCheck())
+            // To fix bug that let players launch out of the corners
+            if (!(horizontalInput != 0 && verticalInput != 0))
             {
-                player.playerRb.velocity = new Vector3(horizontalInput * player.playerData.gravSpeed, 0, player.playerRb.velocity.z);
-            }
 
-            if (RightWallCheck() || LeftWallCheck())
-            {
-                player.playerRb.velocity = new Vector3(player.playerRb.velocity.x, 0, verticalInput * player.playerData.gravSpeed);
+                if (CeilingCheck() || FloorCheck())
+                {
+                    player.playerRb.velocity = new Vector3(horizontalInput * player.playerData.gravSpeed, 0, player.playerRb.velocity.z);
+                }
+
+                if (RightWallCheck() || LeftWallCheck())
+                {
+                    player.playerRb.velocity = new Vector3(player.playerRb.velocity.x, 0, verticalInput * player.playerData.gravSpeed);
+                }
             }
         }
     }
