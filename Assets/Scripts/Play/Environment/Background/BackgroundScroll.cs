@@ -35,8 +35,6 @@ public class BackgroundScroll : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(spaceSprites[0].gameObject.transform.position.x + spaceStartPos[0]);
-
         // Move sprites and reset position to give illusion of endless scrolling
         for (int i = 0; i < spaceSprites.Count; i++)
         {
