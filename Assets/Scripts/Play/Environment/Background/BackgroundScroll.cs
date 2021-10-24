@@ -10,44 +10,52 @@ public class BackgroundScroll : MonoBehaviour
     public List<SpriteRenderer> spaceSprites;
     public List<SpriteRenderer> starsSprites;
 
-    private float spaceLength;
-    private float starsLength = 40.96f;
+    private float spriteLength = 40.96f;
 
-    private float spaceStartPos;
-    private float starsStartPos;
+    private List<float> spaceStartPos;
+    private List<float> starsStartPos;
 
     // Start is called before the first frame update
     void Start()
     {
-        spaceLength = spaceSprites[0].sprite.bounds.size.x;
-        //starsLength = starsSprites[0].sprite.bounds.size.x;
+        spaceStartPos = new List<float>();
+        starsStartPos = new List<float>();
 
-        spaceStartPos = spaceSprites[0].gameObject.transform.position.x;
-        starsStartPos = starsSprites[0].gameObject.transform.position.x;
+        // Get starting positions of each sprite in each group
+        for (int i = 0; i < spaceSprites.Count;  i++)
+        {
+            spaceStartPos.Add(spaceSprites[i].gameObject.transform.position.x);
+        }
+
+        for (int i = 0; i < starsSprites.Count; i++)
+        {
+            starsStartPos.Add(starsSprites[i].gameObject.transform.position.x);
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        foreach (SpriteRenderer sprite in spaceSprites)
-        {
-            sprite.gameObject.transform.Translate(Vector3.right * spaceSpeed * Time.deltaTime);
+        Debug.Log(spaceSprites[0].gameObject.transform.position.x + spaceStartPos[0]);
 
-            if (sprite.gameObject.transform.position.x > spaceLength)
+        // Move sprites and reset position to give illusion of endless scrolling
+        for (int i = 0; i < spaceSprites.Count; i++)
+        {
+            spaceSprites[i].gameObject.transform.Translate(Vector3.right * spaceSpeed * Time.deltaTime);
+            if ((spaceSprites[i].gameObject.transform.position.x - spaceStartPos[i]) > spriteLength)
             {
-                sprite.gameObject.transform.position = new Vector3(sprite.gameObject.transform.position.x - spaceLength * 2,
-                    sprite.gameObject.transform.position.y, sprite.gameObject.transform.position.z);
+                spaceSprites[i].gameObject.transform.position = new Vector3(spaceStartPos[i],
+                    spaceSprites[i].gameObject.transform.position.y, spaceSprites[i].gameObject.transform.position.z);
             }
         }
 
-        foreach (SpriteRenderer sprite in starsSprites)
+        for (int i = 0; i < starsSprites.Count; i++)
         {
-            sprite.gameObject.transform.Translate(Vector3.right * starsSpeed * Time.deltaTime);
+            starsSprites[i].gameObject.transform.Translate(Vector3.right * starsSpeed * Time.deltaTime);
 
-            if (sprite.gameObject.transform.position.x > starsLength)
+            if ((starsSprites[i].gameObject.transform.position.x - starsStartPos[i]) > spriteLength)
             {
-                sprite.gameObject.transform.position = new Vector3(sprite.gameObject.transform.position.x - starsLength * 2,
-                    sprite.gameObject.transform.position.y, sprite.gameObject.transform.position.z);
+                starsSprites[i].gameObject.transform.position = new Vector3(starsStartPos[i],
+                    starsSprites[i].gameObject.transform.position.y, starsSprites[i].gameObject.transform.position.z);
             }
         }
     }
