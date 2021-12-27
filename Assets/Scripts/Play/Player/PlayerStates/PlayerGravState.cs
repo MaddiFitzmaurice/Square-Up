@@ -19,7 +19,6 @@ public class PlayerGravState : BaseState
 
     public override void LogicUpdate()
     {   
-        // ******Change input button later
         if (Input.GetKeyDown(KeyCode.P))
         {
             player.playerAttack.FireProjectile();

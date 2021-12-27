@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -24,6 +25,12 @@ public class MenuManager : MonoBehaviour
         mainMenuActive = !mainMenuActive;
         mainMenu.gameObject.SetActive(mainMenuActive);
         howToPlayMenu.gameObject.SetActive(!mainMenuActive);
+    }
+
+    public void PlayGame()
+    {
+        // Load Play scene
+        SceneManager.LoadScene(1);
     }
 
     public void QuitGame()
