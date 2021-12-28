@@ -43,6 +43,12 @@ public class GMSpongeState : BaseState
             GameManager.instance.gmStateMachine.ChangeState(GameManager.instance.gmEvadeState);
         }
 
+        // If player dies, go to end screen
+        if (player.playerData.health <= 0)
+        {
+            GameManager.instance.gmStateMachine.ChangeState(GameManager.instance.gmEndState);
+        }
+
         player.stateMachine.currentState.LogicUpdate();
         boss.stateMachine.currentState.LogicUpdate();
         enviroManager.stateMachine.currentState.LogicUpdate();

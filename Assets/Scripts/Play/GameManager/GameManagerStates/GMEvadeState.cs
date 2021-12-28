@@ -32,6 +32,7 @@ public class GMEvadeState : BaseState
             GameManager.instance.gmStateMachine.ChangeState(GameManager.instance.gmSpongeState);
         }
 
+        // If player dies, go to end screen
         if (player.playerData.health <= 0)
         {
             GameManager.instance.gmStateMachine.ChangeState(GameManager.instance.gmEndState);

@@ -19,6 +19,11 @@ public class GameUI : MonoBehaviour
 
     // GameUI's components
     public GameObject pauseMenu;
+    public GameObject gameOverMenu;
+    public GameObject winMenu;
+
+    // Reference to player
+    public Player player;
     
     private void Awake()
     {
@@ -28,7 +33,10 @@ public class GameUI : MonoBehaviour
         gameUIEndState = new GameUIEndState(this);
 
         // Create GameUI's state machine
-        stateMachine = new StateMachine(gameUIStartState);  
+        stateMachine = new StateMachine(gameUIStartState);
+
+        // Get reference to player
+        player = FindObjectOfType<Player>();
     }
 
     private void Start()
@@ -43,5 +51,11 @@ public class GameUI : MonoBehaviour
 #else
         Application.Quit();
 #endif
+    }
+
+    public void ReturnMainMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
     }
 }

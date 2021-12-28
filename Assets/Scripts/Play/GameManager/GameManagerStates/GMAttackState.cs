@@ -41,6 +41,12 @@ public class GMAttackState : BaseState
             }
         }
 
+        // If Boss dies, change to game end state
+        if (boss.bossData.health <= 0)
+        {
+            GameManager.instance.gmStateMachine.ChangeState(GameManager.instance.gmEndState);
+        }
+
         if (player.playerAttack.hasDoneBigAttack)
         {
             GameManager.instance.gmStateMachine.ChangeState(GameManager.instance.gmEvadeState);

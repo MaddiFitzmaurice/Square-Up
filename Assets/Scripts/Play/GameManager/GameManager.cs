@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
         gmEndState = new GMEndState(player, boss, enviro, gameUI);
 
         gmStateMachine = new StateMachine(gmStartState);
+
         gmStateMachine.ChangeState(gmStartState);
     }
 

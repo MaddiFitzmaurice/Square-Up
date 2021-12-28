@@ -13,6 +13,6 @@ public class PlayerEndState : BaseState
 
     public override void Enter()
     {
-
+        player.playerMovement.GravEnter();
     }
 }

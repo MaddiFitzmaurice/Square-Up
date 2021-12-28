@@ -19,9 +19,14 @@ public class GMEndState : BaseState
 
     public override void Enter()
     {
-        player.stateMachine.ChangeState(player.playerNoGravState);
-        boss.stateMachine.ChangeState(boss.bossNoGravState);
+        player.stateMachine.ChangeState(player.playerEndState);
+        boss.stateMachine.ChangeState(boss.bossEndState);
         enviroManager.stateMachine.ChangeState(enviroManager.enviroEvadeState);
         gameUI.stateMachine.ChangeState(gameUI.gameUIEndState);
+    }
+
+    public override void LogicUpdate()
+    {
+        
     }
 }

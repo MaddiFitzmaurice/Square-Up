@@ -12,6 +12,7 @@ public class Boss : MonoBehaviour
     public BossNoGravState bossNoGravState;
     public BossSpongeState bossSpongeState;
     public BossWeakState bossWeakState;
+    public BossEndState bossEndState;
 
     // Boss's components
     public BossMovement bossMovement;
@@ -37,6 +38,7 @@ public class Boss : MonoBehaviour
         bossNoGravState = new BossNoGravState(this);
         bossSpongeState = new BossSpongeState(this);
         bossWeakState = new BossWeakState(this);
+        bossEndState = new BossEndState(this);
 
         // Create boss's state machine
         stateMachine = new StateMachine(bossStartState);

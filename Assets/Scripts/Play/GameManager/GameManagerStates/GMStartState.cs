@@ -21,7 +21,7 @@ public class GMStartState : BaseState
     {
         player.stateMachine.ChangeState(player.playerStartState);
         boss.stateMachine.ChangeState(boss.bossStartState);
-        //enviro.stateMachine.ChangeState(enviro.enviroStartState); 
+        enviroManager.stateMachine.ChangeState(enviroManager.enviroEvadeState); 
         gameUI.stateMachine.ChangeState(gameUI.gameUIStartState);
     }
 
@@ -29,7 +29,6 @@ public class GMStartState : BaseState
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            // ********Change back to Evade State
             GameManager.instance.gmStateMachine.ChangeState(GameManager.instance.gmSpongeState);
         }
 
@@ -43,6 +42,5 @@ public class GMStartState : BaseState
     {
         player.stateMachine.currentState.PhysicsUpdate();
         boss.stateMachine.currentState.PhysicsUpdate();
-        //enviroManager.stateMachine.currentState.PhysicsUpdate();
     }
 }
