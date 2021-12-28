@@ -34,19 +34,10 @@ public class PlayerHealthManager : MonoBehaviour
 
         if (other.CompareTag("BossTrackerFire"))
         {
+            // Damage and blow player back
             player.playerData.health -= other.GetComponent<TrackerProjectile>().damage;
+            player.playerRb.AddForce(other.transform.forward * 20, ForceMode.Impulse);
             other.gameObject.SetActive(false);
-        }
-
-        if (other.CompareTag("LaunchpadTrigger"))
-        {
-            // Check if in GravState not AttackState
-            // Rising launchpads trigger a game over if caught on one
-            if (player.stateMachine.currentState == player.playerGravState)
-            {
-                // Game over logic here
-                Debug.Log("You died.");
-            }
         }
     }
 
@@ -61,7 +52,6 @@ public class PlayerHealthManager : MonoBehaviour
                 // Get surface normal of contact point and blow player back in opposite direction
                 ContactPoint contactPoint = collision.GetContact(0);
                 player.playerRb.AddForce(contactPoint.normal * 20, ForceMode.Impulse);
-                // Need to add boss shield damage and shield explosion force for above line
             }
         }
     }
