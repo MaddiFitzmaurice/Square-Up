@@ -16,18 +16,21 @@ public class PlayerHealthManager : MonoBehaviour
     {
         if (other.CompareTag("BossSingleFire"))
         {
+            player.playerSFX.playerAudioSource.PlayOneShot(player.playerSFX.playerAudio[0]);
             player.playerData.health -= other.GetComponent<BasicProjectile>().damage;
             other.gameObject.SetActive(false);
         }
 
         if (other.CompareTag("BossAreaFire"))
         {
+            player.playerSFX.playerAudioSource.PlayOneShot(player.playerSFX.playerAudio[0]);
             player.playerData.health -= other.GetComponent<BasicProjectile>().damage;
             other.gameObject.SetActive(false);
         }
 
         if (other.CompareTag("BossMine"))
         {
+            player.playerSFX.playerAudioSource.PlayOneShot(player.playerSFX.playerAudio[0]);
             player.playerData.health -= other.GetComponent<Mine>().damage;
             other.gameObject.SetActive(false);
         }
@@ -51,6 +54,7 @@ public class PlayerHealthManager : MonoBehaviour
             {
                 // Get surface normal of contact point and blow player back in opposite direction
                 ContactPoint contactPoint = collision.GetContact(0);
+                player.playerSFX.playerAudioSource.PlayOneShot(player.playerSFX.playerAudio[4]);
                 player.playerRb.AddForce(contactPoint.normal * 20, ForceMode.Impulse);
             }
         }

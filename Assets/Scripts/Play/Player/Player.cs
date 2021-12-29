@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     public PlayerMovement playerMovement;
     public Rigidbody playerRb;
     public PlayerData playerData;
+    public PlayerSFX playerSFX;
 
     private void Awake()
     {
@@ -27,6 +28,7 @@ public class Player : MonoBehaviour
         playerData = GetComponent<PlayerData>();
         playerMovement = GetComponent<PlayerMovement>();
         playerAttack = GetComponent<PlayerAttack>();
+        playerSFX = GetComponent<PlayerSFX>();
 
         // Create player's states
         playerStartState = new PlayerStartState(this);

@@ -20,6 +20,7 @@ public class Boss : MonoBehaviour
     public BossAttacks bossAttacks;
     public BossData bossData;
     public BossHealthManager bossHealthManager;
+    public BossSFX bossSFX;
 
     // Player reference
     public Player player;
@@ -32,6 +33,7 @@ public class Boss : MonoBehaviour
         bossAttacks = GetComponent<BossAttacks>();
         bossData = GetComponent<BossData>();
         bossHealthManager = GetComponent<BossHealthManager>();
+        bossSFX = GetComponent<BossSFX>();
 
         // Create boss's states
         bossStartState = new BossStartState(this);

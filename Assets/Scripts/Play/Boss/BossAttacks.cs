@@ -160,6 +160,7 @@ public class BossAttacks : MonoBehaviour
             projectile.transform.rotation = transform.rotation;
             projectile.GetComponent<BasicProjectile>().dir = Vector3.forward;
             projectile.SetActive(true);
+            boss.bossSFX.bossAudioSource.PlayOneShot(boss.bossSFX.bossAudio[1]);
         }
     }
     #endregion
@@ -214,7 +215,9 @@ public class BossAttacks : MonoBehaviour
             proj.transform.rotation = transform.rotation * Quaternion.Euler(0, angle, 0);
             proj.GetComponent<BasicProjectile>().dir = Vector3.forward;
             proj.SetActive(true);
-        }   
+        }
+
+        boss.bossSFX.bossAudioSource.PlayOneShot(boss.bossSFX.bossAudio[2]);
     }
 
     #endregion

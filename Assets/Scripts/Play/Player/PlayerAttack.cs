@@ -55,11 +55,13 @@ public class PlayerAttack : MonoBehaviour
                 int rotAngle = fireDir == Vector3.right ? 90 : -90;
 
                 projectile.transform.rotation = Quaternion.Euler(transform.rotation.x, rotAngle, transform.rotation.z);
+                player.playerSFX.playerAudioSource.PlayOneShot(player.playerSFX.playerAudio[3]);
                 projectile.GetComponent<BasicProjectile>().dir = Vector3.forward;
             }
             else
             {
                 projectile.transform.rotation = transform.rotation;
+                player.playerSFX.playerAudioSource.PlayOneShot(player.playerSFX.playerAudio[3]);
                 projectile.GetComponent<BasicProjectile>().dir = fireDir;
             }
         
@@ -73,6 +75,7 @@ public class PlayerAttack : MonoBehaviour
     public void Launch()
     {
         launchDir = player.playerMovement.GetPlayerFireDirection();
+        player.playerSFX.playerAudioSource.PlayOneShot(player.playerSFX.playerAudio[2]);
         player.playerRb.AddForce(launchDir * player.playerData.launchSpeed, ForceMode.Impulse);
     }
 
@@ -86,7 +89,10 @@ public class PlayerAttack : MonoBehaviour
         yield return new WaitForSeconds(2);
         // Launch player in opposite direction
         player.playerRb.AddForce(-launchDir * player.playerData.launchSpeed, ForceMode.Impulse);
-        yield return new WaitForSeconds(2);
+        player.playerSFX.playerAudioSource.PlayOneShot(player.playerSFX.playerAudio[2]);
+        yield return new WaitForSeconds(0.60f);
+        player.playerSFX.playerAudioSource.PlayOneShot(player.playerSFX.playerAudio[1]);
+        yield return new WaitForSeconds(1.4f);
         // Signal to GameManager to initiate state change out of AttackState
         hasDoneBigAttack = true;
     }

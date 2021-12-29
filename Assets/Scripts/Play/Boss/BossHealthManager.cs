@@ -33,6 +33,7 @@ public class BossHealthManager : MonoBehaviour
                 if (boss.bossData.shieldHealth == 0)
                 {
                     shield.SetActive(false);
+                    boss.bossSFX.bossAudioSource.PlayOneShot(boss.bossSFX.bossAudio[3]);
                     shieldCollider.enabled = false;
                 }
             }
@@ -43,6 +44,7 @@ public class BossHealthManager : MonoBehaviour
         {
             if (weakHitbox.enabled)
             {
+                boss.bossSFX.bossAudioSource.PlayOneShot(boss.bossSFX.bossAudio[0]);
                 boss.bossData.health -= 1;
             }
         }
