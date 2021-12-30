@@ -2580,7 +2580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  healthMax: 3
+  healthMax: 1
   shieldHealthMax: 15
   shieldHealth: 0
   singleFireProjectiles: 15
@@ -2612,7 +2612,7 @@ MonoBehaviour:
   - {fileID: 1771782005}
   trackerDamage: 3
   trackerSpeed: 5
-  trackerDestroyAfter: 15
+  trackerDestroyAfter: 13
   trackerStartTime: 2
 --- !u!114 &370257848
 MonoBehaviour:
@@ -2754,6 +2754,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1e05075e87cf1bc438f6a24cec273388, type: 3}
   - {fileID: 8300000, guid: 9ac7f5d4b2128cd4bb066105ed69dc19, type: 3}
   - {fileID: 8300000, guid: 90b8d5adfb3c8174fbc9cb191881e762, type: 3}
+  - {fileID: 8300000, guid: c21a5bf1f5118704b9671baff9bcfbca, type: 3}
   - {fileID: 8300000, guid: f891eb3594fd78446985338dbb554e07, type: 3}
   bossAudioSource: {fileID: 370257850}
 --- !u!1 &378063286
@@ -8343,6 +8344,7 @@ MonoBehaviour:
   playerRb: {fileID: 0}
   playerData: {fileID: 0}
   playerSFX: {fileID: 0}
+  playerHealthManager: {fileID: 0}
 --- !u!114 &1336132485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8406,6 +8408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87087a56a4cad1442b3e170aab04ffef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trackerProjHit: 0
 --- !u!82 &1336132489
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8520,6 +8523,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 21d4272d069a6354eb61db0175e129d9, type: 3}
   - {fileID: 8300000, guid: 88ddf9fb3d2fe4b4184f0ae990f8e94f, type: 3}
   - {fileID: 8300000, guid: 34824065b0a0cb444b98b5c6ac6d223e, type: 3}
+  - {fileID: 8300000, guid: da731b82e601b8d4f81287c94da64746, type: 3}
   playerAudioSource: {fileID: 1336132489}
 --- !u!1 &1396379461
 GameObject:
@@ -10558,6 +10562,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameUIAudio:
   - {fileID: 8300000, guid: ae6951daee1183f4f96b671b1013110a, type: 3}
+  - {fileID: 8300000, guid: cc5161b0755cb27419525c2a7869d08a, type: 3}
+  - {fileID: 8300000, guid: f7c58e48d75da0d4ba62ac9a624aa307, type: 3}
+  - {fileID: 8300000, guid: 935dca6af50265d4eb9a10528115f3b3, type: 3}
   gameUIAudioSource: {fileID: 1676947771}
 --- !u!1 &1680768620
 GameObject:

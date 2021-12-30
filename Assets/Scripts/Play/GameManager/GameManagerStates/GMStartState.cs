@@ -27,7 +27,7 @@ public class GMStartState : BaseState
 
     public override void LogicUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (player.playerMovement.canControl)
         {
             GameManager.instance.gmStateMachine.ChangeState(GameManager.instance.gmEvadeState);
         }

@@ -44,6 +44,7 @@ public class PlayerHealthManager : MonoBehaviour
             player.playerData.health -= other.GetComponent<TrackerProjectile>().damage;
             player.playerRb.AddForce(other.transform.forward * 20, ForceMode.Impulse);
             other.gameObject.SetActive(false);
+            player.playerSFX.playerAudioSource.PlayOneShot(player.playerSFX.playerAudio[5]);
             trackerProjHit = true;
         }
     }

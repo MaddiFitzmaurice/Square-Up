@@ -17,11 +17,13 @@ public class GameUIEndState : BaseState
        if (gameUI.player.playerData.health <= 0)
        {
             gameUI.gameOverMenu.gameObject.SetActive(true);
-       }
-       // Show Win menu if player has won
-       else
+            gameUI.gameUISFX.gameUIAudioSource.PlayOneShot(gameUI.gameUISFX.gameUIAudio[2]);
+        }
+        // Show Win menu if player has won
+        else
        {
             gameUI.winMenu.gameObject.SetActive(true);
+            gameUI.gameUISFX.gameUIAudioSource.PlayOneShot(gameUI.gameUISFX.gameUIAudio[1]);
        }
     }
 }

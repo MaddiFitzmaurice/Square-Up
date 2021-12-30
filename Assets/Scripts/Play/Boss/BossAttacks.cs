@@ -255,6 +255,8 @@ public class BossAttacks : MonoBehaviour
 
     public void MineField()
     {
+        boss.bossSFX.bossAudioSource.PlayOneShot(boss.bossSFX.bossAudio[4]);
+
         for (int i = 0; i < boss.bossData.mineLocations.Count; i++)
         {
             GameObject pooledMine = ObjectPooler.GetPooledObject(mines);
@@ -291,6 +293,12 @@ public class BossAttacks : MonoBehaviour
         trackerProjectile.transform.position = transform.position;
         trackerProjectile.transform.rotation = Quaternion.identity;
         trackerProjectile.gameObject.SetActive(true);
+        InvokeRepeating("TrackingFireSFX", 0.5f, 0.5f);
+    }
+
+    public void TrackingFireSFX()
+    {
+        boss.bossSFX.bossAudioSource.PlayOneShot(boss.bossSFX.bossAudio[5]);
     }
     #endregion
 }

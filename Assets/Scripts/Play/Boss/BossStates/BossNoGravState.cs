@@ -37,5 +37,6 @@ public class BossNoGravState : BaseState
     public override void Exit()
     {
         boss.bossAttacks.ClearMinesEarly();
+        boss.bossAttacks.StopAttack();
     }
 }

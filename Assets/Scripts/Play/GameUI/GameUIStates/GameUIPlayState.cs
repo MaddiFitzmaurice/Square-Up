@@ -20,6 +20,7 @@ public class GameUIPlayState : BaseState
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             paused = !paused;
+            gameUI.gameUISFX.gameUIAudioSource.PlayOneShot(gameUI.gameUISFX.gameUIAudio[3]);
             gameUI.pauseMenu.gameObject.SetActive(paused);
 
             if (paused)
