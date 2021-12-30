@@ -130,6 +130,15 @@ public class BossAttacks : MonoBehaviour
     {
         CancelInvoke();
     }
+
+    public void ClearMinesEarly()
+    {
+        for (int i = 0; i < mines.Count; i++)
+        {
+            mines[i].gameObject.SetActive(false);
+        }
+    }
+
     #endregion
 
     #region Single Fire

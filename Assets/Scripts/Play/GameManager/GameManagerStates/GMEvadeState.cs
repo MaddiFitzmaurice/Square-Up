@@ -38,6 +38,12 @@ public class GMEvadeState : BaseState
             GameManager.instance.gmStateMachine.ChangeState(GameManager.instance.gmEndState);
         }
 
+        // If player is hit by a tracker projectile but does not die
+        if (player.playerHealthManager.trackerProjHit)
+        {
+            GameManager.instance.gmStateMachine.ChangeState(GameManager.instance.gmSpongeState);
+        }
+
         player.stateMachine.currentState.LogicUpdate();
         boss.stateMachine.currentState.LogicUpdate();
         enviroManager.stateMachine.currentState.LogicUpdate();

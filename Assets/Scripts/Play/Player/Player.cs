@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     public Rigidbody playerRb;
     public PlayerData playerData;
     public PlayerSFX playerSFX;
+    public PlayerHealthManager playerHealthManager;
 
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class Player : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         playerAttack = GetComponent<PlayerAttack>();
         playerSFX = GetComponent<PlayerSFX>();
+        playerHealthManager = GetComponent<PlayerHealthManager>();
 
         // Create player's states
         playerStartState = new PlayerStartState(this);

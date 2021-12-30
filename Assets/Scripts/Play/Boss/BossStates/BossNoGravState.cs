@@ -33,4 +33,9 @@ public class BossNoGravState : BaseState
             boss.bossMovement.LookAtPlayer();
         }
     }
+
+    public override void Exit()
+    {
+        boss.bossAttacks.ClearMinesEarly();
+    }
 }

@@ -12,6 +12,8 @@ public class MenuManager : MonoBehaviour
     public Canvas mainMenu;
     public Canvas howToPlayMenu;
 
+    public AudioSource audioSource;
+
     private bool mainMenuActive;
 
     void Start()
@@ -22,6 +24,7 @@ public class MenuManager : MonoBehaviour
 
     public void ChangeMenus()
     {
+        audioSource.Play();
         mainMenuActive = !mainMenuActive;
         mainMenu.gameObject.SetActive(mainMenuActive);
         howToPlayMenu.gameObject.SetActive(!mainMenuActive);
@@ -30,11 +33,13 @@ public class MenuManager : MonoBehaviour
     public void PlayGame()
     {
         // Load Play scene
+        audioSource.Play();
         SceneManager.LoadScene(1);
     }
 
     public void QuitGame()
     {
+        audioSource.Play();
 #if UNITY_EDITOR
         EditorApplication.isPlaying = false;
 #else

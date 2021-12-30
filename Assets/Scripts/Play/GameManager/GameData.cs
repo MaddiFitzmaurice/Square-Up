@@ -12,6 +12,7 @@ public class GameData : MonoBehaviour
     #endregion
 
     #region AttackState Game Data
+    [Header("Launchpad Data")]
     public int launchpadCountdown;
     #endregion
 

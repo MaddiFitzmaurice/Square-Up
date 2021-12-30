@@ -19,7 +19,7 @@ public class PlayerNoGravState : BaseState
 
     public override void LogicUpdate()
     {
-        // Change state here?
+
     }
 
     public override void PhysicsUpdate()
@@ -29,6 +29,7 @@ public class PlayerNoGravState : BaseState
 
     public override void Exit()
     {
+        player.playerHealthManager.trackerProjHit = false;
         player.playerMovement.GravEnter();
     }
 }

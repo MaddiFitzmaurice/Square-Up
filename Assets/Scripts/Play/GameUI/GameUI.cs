@@ -21,6 +21,7 @@ public class GameUI : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject gameOverMenu;
     public GameObject winMenu;
+    public GameUISFX gameUISFX;
 
     // Reference to player
     public Player player;
@@ -31,6 +32,9 @@ public class GameUI : MonoBehaviour
         gameUIStartState = new GameUIStartState(this);
         gameUIPlayState = new GameUIPlayState(this);
         gameUIEndState = new GameUIEndState(this);
+
+        // Create GameUI's components
+        gameUISFX = GetComponent<GameUISFX>();
 
         // Create GameUI's state machine
         stateMachine = new StateMachine(gameUIStartState);
@@ -46,6 +50,7 @@ public class GameUI : MonoBehaviour
 
     public void QuitGame()
     {
+        gameUISFX.gameUIAudioSource.PlayOneShot(gameUISFX.gameUIAudio[0]);
 #if UNITY_EDITOR
         EditorApplication.isPlaying = false;
 #else
@@ -56,6 +61,7 @@ public class GameUI : MonoBehaviour
     public void ReturnMainMenu()
     {
         Time.timeScale = 1;
+        gameUISFX.gameUIAudioSource.PlayOneShot(gameUISFX.gameUIAudio[0]);
         SceneManager.LoadScene(0);
     }
 }

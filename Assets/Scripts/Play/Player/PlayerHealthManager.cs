@@ -6,6 +6,9 @@ public class PlayerHealthManager : MonoBehaviour
 {
     private Player player;
 
+    // Flag to indicate tracker projectile hit player early
+    public bool trackerProjHit = false;
+
     void Start()
     {
         player = GetComponent<Player>();
@@ -41,6 +44,7 @@ public class PlayerHealthManager : MonoBehaviour
             player.playerData.health -= other.GetComponent<TrackerProjectile>().damage;
             player.playerRb.AddForce(other.transform.forward * 20, ForceMode.Impulse);
             other.gameObject.SetActive(false);
+            trackerProjHit = true;
         }
     }
 
